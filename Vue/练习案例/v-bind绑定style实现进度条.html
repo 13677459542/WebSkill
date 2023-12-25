@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: block;
+            margin: 8px;
+        }
+        .progress {
+width: 400px;
+height: 25px;
+background-color: #272425;
+border: 3px solid #272425;
+box-sizing: border-box;/*设置容器的padding和border的值都算在容器内，不会因为设置后而增加容器宽高*/
+margin-bottom: 30px;
+border-radius: 20px;
+        }
+
+        .inner {
+width: 50%;
+height: 20px;
+border-radius: 20px;
+text-align: right;
+position: relative;
+background-color: #409eff;
+background-size: 20px 20px;
+box-sizing: border-box;/*设置容器的padding和border的值都算在容器内，不会因为设置后而增加容器宽高*/
+transition:all 1s;
+        }
+        .inner span{
+            margin-top: 25px;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--外层盒子-->
+        <div class="progress">
+             <!--内层盒子-->
+            <div class="inner" :style="{width:percent+'%'}">
+                <span>{{percent}}%</span>
+            </div>
+        </div>
+        <button @click="percent = 25">设置25%</button>
+        <button @click="percent = 50">设置50%</button>
+        <button @click="percent = 75">设置75%</button>
+        <button @click="percent = 100">设置100%</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script>
+        const app=new Vue({
+            el:'#app',
+            data:{
+              percent:30
+            }
+        })
+    </script>
+</body>
+</html>

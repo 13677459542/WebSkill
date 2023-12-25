@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box{
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 800px;
+        }
+
+        .input-wrap{
+            margin: 0;
+            padding: 0;
+            width: 50%;
+            height: 400px;
+            float: left;
+        }
+
+        .output-wrap{
+            margin: 0;
+            padding: 0;
+            width: 50%;
+            height: 400px;
+            float: left;
+            background-color: rgb(219, 215, 215);
+        }
+
+        .input-wrap textarea{
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <label>翻译成的语言：</label>
+            <select v-model="obj.lang"> 
+                <option value="italy">意大利</option>
+                <option value="english">英语</option>
+                <option value="greman">德语</option>
+            </select>
+        </div>
+        <div class="box">
+            <div class="input-wrap">
+                <textarea v-model="obj.words"></textarea>
+                <span>文档翻译</span>
+            </div>
+            <div class="output-wrap">
+                <div class="transbox">{{result}}</div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script src="https://applet-base-api-t.itheima.net/api/translate"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        const app=new Vue({
+            el:'#app',
+            data:{
+                obj:{
+                    words:'小黑',
+                    lang:'italy'
+                },
+                result:''
+            },
+            watch:{
+                obj:{
+                    deep:true,//深度监视，对对象里面的所有子元素进行监视
+                    immediate:true,//立刻马上执行，一进页面立刻执行
+                    handler(newValue){
+                          clearTimeout(this.timer);
+                          this.timer=setTimeout(async()=>{
+                           const res=await axios({
+                            url:'https://applet-base-api-t.itheima.net/api/translate',
+                            params:newValue
+                           })
+                           this.result=res.data.data;
+                           console.log(res.data.data)
+                          },300)
+                    }
+                },
+                // 'obj.words'(newValue,oldValue){//普通写法
+                //     console.log(newValue)
+                // } http://autumnfish.cn/static/榴莲.png
+            }
+        })
+    </script>
+</body>
+</html>

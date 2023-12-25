@@ -1,0 +1,212 @@
+/* 头尾各个页面相同的样式 */
+/* 版心 */
+.wrapper{
+    margin: 0 auto;
+    width:1240px;
+}
+
+.shortcut{
+    height: 52px;
+    background-color: #333;
+}
+.shortcut .wrapper{
+    height: 52px;
+    line-height: 52px;
+    display: flex;
+    justify-content: flex-end;
+}
+.shortcut ul{
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 400;
+}
+.shortcut li{
+}
+.shortcut li a{
+    color: #fff;
+    padding:0 15px;
+    border-right: 1px solid #999;
+}
+.shortcut li:last-child a{
+    border-right:none;
+}
+.shortcut li a .iconfont{
+    margin-right: 4px;
+}
+.shortcut .Logoin{
+    color: #5EB69C;
+}
+
+
+.header{
+    height: 88px;
+    margin-top: 22px;
+    display: flex;
+}
+.header .logo{
+    /* height: 88px;
+    width: 200px; */
+    margin-right: 41px;
+}
+.header .logo a{
+    display: block;
+    font-size: 0px;
+    height: 88px;
+    width: 200px;
+    background: url("../images/logo.png") no-repeat;
+}
+.header .nav{
+    padding-top: 33px;
+    margin-right: 28px;
+} 
+.header .nav ul{
+    display: flex;
+}
+.header .nav li{
+    margin-right: 47px;
+}
+.header .nav li a{
+    display: block;
+    font-size: 16px;
+    font-weight: 400;
+    padding-bottom: 10px;
+    line-height: 32.5px;
+}
+.header .nav a:hover{
+    color: #5EB69C;
+    border-bottom: 2px solid #5EB69C;
+}
+.header .serrch{
+    display: flex;
+    height: 42px;
+    width: 170px;
+    margin-top: 33px;
+    margin-right: 45px;
+    border-bottom: 2px solid #F4F4F4;
+}
+.header .serrch .iconfont{
+    margin-right: 8px;
+    color: #ccc;
+    font-size: 22px;
+}
+.header .serrch input{
+    flex: 1;
+    width: 0;/* 浏览器优先生效input标签的默认宽度，所以 flex: 1 不生效 解决办法:重置 input 默认宽度 > width: 0*/
+}
+.header .serrch input::placeholder{
+    font-size: 16px;
+    color: #ccc;
+}
+.header .cart{
+    position: relative;
+    margin-top: 32px;
+}
+.header .cart .iconfont{
+    font-size: 30px;
+}
+.header .cart i{
+    position: absolute;
+    /* 设置左对齐防止文字过多遮挡左边内容 */
+    left: 10px;
+    top: 5px;
+    /* width: 20px; 不能直接写死宽度，用左右边距来撑开内容背景*/
+    padding: 0 6px;
+    height: 15px;
+    line-height: 15px;
+    font-size: 14px;
+    background: #E26237;
+    border-radius: 7.5px;
+    color: #fff;
+    text-align: center;
+}
+
+
+.footer{
+    height: 580px;
+    background-color: #F5F5F5;
+}
+.footer .service{
+    height: 178px;
+    padding: 60px 0;
+    border-bottom: 1px solid #E8E8E8;
+}
+.footer .service ul{
+    display: flex;
+    justify-content: space-evenly;
+    line-height: 58px;
+    font-size: 28px;
+    font-weight: 400;
+}
+.footer .service h5{
+    height: 58px;
+    width: 58px;
+    background: url(../images/sprite.png) no-repeat;
+    margin-right: 20px;
+}
+.footer .service li:nth-child(2) h5{
+    background-position: 0 -58px;
+}
+.footer .service li:nth-child(3) h5{
+    background-position: 0 -116px;
+}
+.footer .service li:nth-child(4) h5{
+    background-position: 0 -174px;
+}
+.footer .service li{
+    display: flex;
+}
+
+.footer .help{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 60px;
+    height: 300px;
+}
+
+.footer .help .left{
+    display: flex;
+}
+.footer .help .left dl{
+    margin-right: 84px;
+}
+.footer .help .left dl:last-child{
+    margin-right:0;
+}
+.footer .help .left dt{
+    margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: 400;
+}
+.footer .help .left dd{
+    margin-bottom: 10px;
+}
+.footer .help .left dd a{
+    font-size: 16px;
+    color: #969696;
+}
+.footer .help .left .iconfont{
+    color: #5eb69c;
+}
+.footer .help .right ul{
+    display: flex;
+}
+.footer .help .right li:first-child{
+    margin-right: 55px;
+}
+.footer .help .right p{
+    font-size: 16px;
+    color: #969696;
+    text-align: center;
+ 
+    margin-top: 10px;
+}
+.footer .copyrighht p{
+    color: #A1A1A1;
+    margin-top: 10px;
+    text-align: center;
+}
+.footer .copyrighht a{
+    color: #A1A1A1;
+    margin: 0 5px;
+}

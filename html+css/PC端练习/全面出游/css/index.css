@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 默认状态HTML和body的高度是0，所以导致cover缩放背景图不成功 */
+html{
+    height: 100%;
+}
+body{
+    height: 100%;
+    background: url(../images/f1_1.jpg) no-repeat center 0 / cover;
+}
+
+.cloud img{
+    position: absolute;
+    left: 50%;
+}
+.cloud img:nth-child(1){
+    margin-left: -250px;
+    top: 20px;
+    animation: cloud 1s linear infinite alternate;
+}
+.cloud img:nth-child(2){
+    margin-left: 400px;
+    top: 100px;
+    animation: cloud 1s linear infinite alternate 0.4s;
+}
+.cloud img:nth-child(3){
+    margin-left: -550px;
+    top: 200px;
+    animation: cloud 1s linear infinite alternate 0.6s;
+}
+@keyframes cloud {
+    100%{
+        transform: translate(20px);
+    }
+}
+
+.text img{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    animation: text 1s;
+}
+@keyframes text {
+    0%{
+        transform: translate(-50%,-50%) scale(1);
+    }
+    20%{
+        transform: translate(-50%,-50%) scale(0.6);
+    }
+    40%{
+        transform: translate(-50%,-50%) scale(1.4);
+    }
+    60%{
+        transform: translate(-50%,-50%) scale(0.8);
+    }
+    100%{
+        transform: translate(-50%,-50%) scale(1);
+    }
+}
+.balloon img{
+    position: absolute;
+    left: 650px;
+    top: 200px;
+    animation: balloon 2s linear infinite alternate;
+}
+.deer img{
+    position: absolute;
+    left: 1150px;
+    top: 200px;
+    /* transform: rotate(180deg); */
+}
+@keyframes balloon {
+    100%{
+        transform: translateY(40px);
+    }
+}
+
+.title img{
+    position: absolute;
+    bottom: 70px;
+    left: 600px;
+}
+.title img:nth-child(1){
+    animation: title .8s infinite alternate;
+}
+.title img:nth-child(2){
+    margin-left: 200px;
+    animation: title .8s infinite alternate 0.2s;
+}
+.title img:nth-child(3){
+    margin-left: 400px;
+    animation: title .8s infinite alternate 0.4s;
+}
+.title img:nth-child(4){
+    margin-left: 600px;
+    animation: title .8s infinite alternate 0.6s;
+}
+@keyframes title {
+    100%{
+        transform: translateY(30px);
+    }
+}
+

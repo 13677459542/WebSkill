@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>腾讯全端</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- 引入顺序需要层叠框架的，所以框架的样式需要放在前面 -->
+    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Bootstrap/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt=""></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="#">首页</a>
+              <a class="nav-link" href="#">博客</a>
+              <a class="nav-link" href="#">Github</a>
+              <a class="nav-link hot" href="#">TWeb Conf</a>
+              <a class="nav-link" href="#">SuperStar</a>
+              <a class="nav-link" href="#">Web前端导航</a>
+              <a class="nav-link" href="#">关于</a>
+            </div>
+          </div>
+        </div>
+    </nav>
+
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <p class="hire-name">腾讯AlloyTeam招聘Web+工程师<br>2020</p>
+            <p class="hire-title">征不平凡的你</p>
+          </div>
+          <div class="carousel-item">
+          </div>
+          <div class="carousel-item">
+            <p class="hire-name">Alloy前端周刊</p>
+            <p class="hire-title">为您带来精彩有料的前端好文</p>
+          </div>
+          <div class="carousel-item">
+            <p class="hire-name">Omi</p>
+            <p class="hire-title">开放现代的web组件化框架</p>
+        </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="project container">
+        <div class="title">
+            <h2>OpenSource / 开源项目</h2>
+            <p>种类众多的开源项目，让你爱不释手</p>
+        </div>
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-3 col-md-6"><a href="#">
+                    <div class="pic"><img src="assets/images/omi.png" alt=""></div>
+                    <h3>OMI</h3>
+                    <p>开放现代的Web组件化框架</p>
+                </a></div>
+                <div class="col-lg-3 col-md-6"><a href="#">1</a></div>
+                <div class="col-lg-3 col-md-6"><a href="#">1</a></div>
+                <div class="col-lg-3 col-md-6"><a href="#">1</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./Bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

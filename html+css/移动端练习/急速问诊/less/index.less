@@ -1,0 +1,93 @@
+//out:../css/index.css
+
+@import "./base.less";
+
+//定义变量
+@rootSize:37.5rem;
+
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 (15/@rootSize);
+    height: (44/@rootSize);
+    line-height: (44/@rootSize);
+
+    .back{
+        /*增加返回图标的点击范围*/
+        width: (22/@rootSize);
+    }
+
+    .icon-left{
+        font-size: (22/@rootSize);
+    }
+
+    h3{
+        font-size: (17/@rootSize);
+        color: #000;
+    }
+
+    .note{
+        font-size: (15/@rootSize);
+        color: #2CB5A5;
+    }
+}
+
+.banner{
+    margin-top: (30.5/@rootSize);
+    margin-bottom: (34/@rootSize);
+    text-align: center;
+    img{
+        width: (240/@rootSize);
+        height: (206/@rootSize);
+    }
+    p{
+        font-size: (16/@rootSize);
+        line-height: (25/@rootSize);
+        margin-top: (18/@rootSize);
+        span{
+            color: #16c2a3;
+        }
+    }
+}
+
+.type{
+    padding: 0 (15/@rootSize);
+    li a{
+        width: (345/@rootSize);
+        height: (78/@rootSize);
+        border: (0.5/@rootSize) solid #edede5;
+        border-radius: (4/@rootSize);
+        padding-left: (15/@rootSize);
+        padding-right: (10/@rootSize);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: (15/@rootSize);
+        // background-color: #fff;
+        .left{
+            display: flex;
+            align-items: center;
+            height: (68/@rootSize);
+            img{
+                width: (40/@rootSize);
+                height: (40/@rootSize);
+            }
+            .title{
+                margin-left: (13.5/@rootSize);
+                h3{
+                    color: #3C3E42;
+                    font-size: 16px;
+                    margin-bottom: (4/@rootSize);
+                }
+                p{
+                    color: #848484;
+                    font-size: 13px;
+                }
+            }
+        }
+        .icon-left{
+            font-size: (20/@rootSize);
+            transform: rotateY(180deg);
+        }
+    }
+}

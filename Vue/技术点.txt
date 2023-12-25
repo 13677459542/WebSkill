@@ -1,0 +1,38 @@
+Vue的数据节点：
+el:指定元素id
+data：存储数据
+methods:方法
+computed：计算属性，添加函数可以直接加在元素内容中用{{方法名}}执行，数据变更时函数自动执行重新计算。(具有缓存特性可以提升性能)
+watch:监听，对data里面的数据进行监控，当数据方式发生变化时触发事件。语法：与data里面的字段名对应：比如data里面有word则word(newVluae,oldValue){},有obj{words:''}则'obj.words'(newVluae,oldValue){}
+
+1、指令
+v-html   相当于innerHTML  语法：v-html=“表达式” 
+v-show   控制是否隐藏      语法：v-show=“表达式”  true表示显示，false表示隐藏。应用于经常需要隐藏和显示的元素，比如鼠标悬停显示二维码。
+v-if     控制是否去除内容   语法：v-show=“表达式”  true表示显示，false表示去除。应用于只需要控制一次的显示和隐藏，比如判断是否登录时的提示。
+v-else   v-else if    控制是否去除内容    语法：v-else=“表达式” 、v-else if=“表达式”   表达式不符合时隐藏，符合条件时显示。类似于if else ，必须搭配v-if使用。
+v-on     注册事件          语法：v-on:事件名=“表达式”  或 @:事件名=“表达式”   比如@click，可以在表达式里面直接绑定事件并传入参数，并在Vue的methods节点中声明该方法。也可在里面直接对变量值进行更改。
+v-bind   动态设置标签属性   语法：v-bind:标签=“表达式”  或 :标签=“表达式”  比如img中 :src="url" 、 :title="msg" ，url和msg可以动态设置data节点下的数据。
+v-for    动态循环添加数据   语法：v-for="(item,index) in data" :key="item.id"   比如在ul li中的li添加此指令，动态添加data数组里面的数据。 key的作用相当于给id赋索引，便于Vue正确排序使用。
+v-model  双向数据绑定       语法：v-model=“表达式”   绑定Vue的data节点下的数据，视图元素或data任意一方数据改变都会改变另一边。适用于登录取值请求。
+
+2、指令修饰符
+@keyup   键盘监听         语法：@keyup=“表达式”  比如@keyup.enter=“表达式”是回车键触发事件,如果只是@keyup=“表达式”则所有键盘按键都会触发
+v-model.trim  v-model.number    语法：v-model=“表达式”  .trim代表用户输入文本时去除手尾空字符存入data下的字节。.number是将用户输入的文本转成数字存入，如果是字符串则已字符串存入。
+@click.stop  阻止事件冒泡  @:事件名.sotp=“表达式”   相当于在触发的方法中加入e.stopPropagation()，阻止触发子容器事件的同时触发父容器的事件。
+@click.prevent  阻止默认行为  语法：@click.prevent   比如在a标签中加入此指令，a标签点击时则无法进行跳转。
+:class   对样式类控制进行加减  语法：:class="{类名1：布尔值，类名2：布尔值}" 或 :class="[类名1，类名2]"  可以控制某个类的样式，可以应用于菜单点击或悬浮后的样式。
+:style   对单个样式进行加减    语法：:style="{样式名1：值，样式名2：值}"  比如 :style="{width：'400px'，height：'400px','background-color': 'gree'}",可以用于进度条样式。
+
+filter：this.list=this.list.filter(item=>item.id!==传入的条件id)   在集合中的索引id找到不属于传入的条件id的集合重新赋值给list。
+unshift：this.list.unshift({id:+new Date(),name=text})   在集合最前面添加数据,+new Date()是随机的时间戳
+reduce：let total=this.list.reduce((sum,item)=>sum+item.num,0)  计算求和函数reduce，0代表初始值与后面的sum对应，item代表数据集合，item.num代表计算该集合中的num，相当于累加。
+find：this.list.find(item=>item.id===value); 集合中找到符合条件的项进行操作
+every:this.list.every(item=>item.isCheck); 指定集合中数据全部符合条件时返回true，否则返回false。
+forEach：this.list.forEach(item=>item.isCheck=value); 对集合进行循环遍历并进行操作。
+map：this.list.map(item => ({ value: item.price, name: item.name}));对集合数据进行遍历并返回一个新的集合
+ 
+Vue生命周期：
+1、创建阶段  响应式数据：beforeCreate   created(发送渲染请求)
+2、挂载阶段  渲染模板：beforeMount   mounted(操作dom)
+3、更新阶段  修改数据，更新视图：beforeUpdate   updated 
+4、销毁阶段  销毁实例：beforeDestroy(释放Vue外的资源，清除定时器、延时器等)    destroyed

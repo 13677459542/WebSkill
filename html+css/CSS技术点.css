@@ -1,0 +1,254 @@
+/* 注意点：
+提升网站搜索排名：
+   1、网站logo必须使用标题标签比如h1配合a标签，再设置背景图片。
+   2、title、description、keywords，SEO三大标签设置关键字。
+ */
+
+ /* 追加伪元素(可以直接添加属性)
+         div::after{
+            content: ""; 必须要有设置内容这一属性，否则这个伪元素盒子显示不出来
+            position: absolute;
+            top: 6px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
+            transform: rotate(45deg);
+            transition: all .3s;
+        }
+        div:hover::after{
+            注意角度是相对于元素初始的状态，就是没有做任何旋转的状态
+            transform: rotate(-135deg);
+        }
+ */
+
+/* 处理子元素浮动脱标时，父元素塌陷问题。在父级元素添加以下类 */
+/*before 解决外边距塌陷问题*/
+/*1、 双伪元素法 */
+.clearfix::before,
+.clearfix::after{
+    content: "";
+    display: block;
+}
+
+/* 2、after 清除浮动 */
+.clearfix::after{
+    clear:both;
+}
+
+/* 设置元素背后阴影
+box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);  上右下左方向，后面跟着是颜色
+*/
+
+/* flex布局
+创建flex容器：在父级元素加上display:flex。
+属性
+1、主轴对齐方式：justify-content
+   flex-start：默认值，弹性盒子从起点开始依次排列
+   flex-end：弹性盒子从终点开始依次排列
+   center：弹性盒子沿主轴居中排列
+   space-between：弹性盒子沿主轴均匀排列，空白间距均分在弹性盒子之间
+   space-around：弹性盒子沿主轴均匀排列，空白间距均分在弹性盒子两侧
+   space-evenly：弹性盒子沿主轴均匀排列，弹性盒子与容器之间间距相等
+
+2、侧轴对齐方式（当前弹性容器内所有弹性盒子的侧轴对齐方式）：aligin-item
+3、某个弹性盒子侧轴对齐方式：align-self
+   stretch：弹性盒子沿着侧轴线被拉伸至铺满容器(弹性盒子没有设置侧轴方向尺寸则默认拉伸)
+   center：弹性盒子沿侧轴居中排列
+   flex-start：弹性盒子从起点开始依次排列
+   flex-end：弹性盒子从终点开始依次排列
+
+4、修改主轴方向：flex-direction
+   row:水平方向，从左向右(默认)
+   column:垂直方向，从上向下
+   roW-reverse:水平方向，从右向左
+   column-reverse:垂直方向，从下向上
+
+5、弹性伸缩比:flex
+   设置数字比例，表示占用父级剩余尺寸的份数
+
+6、弹性盒子换行：flex-wrap
+   wrap：换行
+   nowrap：不换行
+
+7：行对齐方式：align-content   对单行盒子不生效
+   flex-start：默认值，弹性盒子从起点开始依次排列
+   flex-end：弹性盒子从终点开始依次排列
+   center：弹性盒子沿主轴居中排列
+   space-between：弹性盒子沿主轴均匀排列，空白间距均分在弹性盒子之间
+   space-around：弹性盒子沿主轴均匀排列，空白间距均分在弹性盒子两侧
+   space-evenly：弹性盒子沿主轴均匀排列，弹性盒子与容器之间间距相等
+*/
+
+/* 定位
+1、position:relative;相对定位
+   1.改变位置的参照物是 自己原来的位置
+   2.不脱标，占位
+   3.标签显示模式（块级、行内块、行内）特点 不变
+2、position:absolute;绝对定位  子绝父相：在父级设置相对定位子级设置绝对定位，在设置子元素的边距
+   1。脱标，不占位
+   2。参照物:先找最近的已经定位的祖先元素;如果所有祖先元素都没有定位,参照浏览器可视区改位置
+   3。显示模式特点改变:宽高生效(具备了行内块的特点)
+   例：绝对定位-剧中
+      1、加绝对定位。2、设置left、top为50%，此时标签的左上角在最中间。3、加上transform:translate(-50%,-50%)实现绝对剧中  （transform也可以设置translateY或translateZ只设置一边）
+3、position:fixed;固定定位
+   1、脱标，不占位
+   2、参照物：浏览器窗口，显示不随网页滚动而隐藏，一直显示在浏览器可视区
+   2、显示模式特点：行内块
+其他：
+   可以设置z-index来控制元素显示层次
+   设置background-position来定位图标合集图里面的某个小图标，也可在background设置url后直接设置复合属性 第一个数字为左边距，第二个数字为上边距
+*/
+
+/* 字体图标
+引入样式iconfont.css,在需要的元素上设置需要用到的图标类名
+*/
+
+/* 垂直对齐方式-居中
+vertical-align:middle;
+*/
+
+/* 过渡效果
+transition:all 1s; 比如鼠标悬停时给元素放大添加过渡效果，加在需要有过渡效果的元素上
+*/
+
+/* 二维转换（一般需要配合过渡效果）
+transform：
+1、平移
+   translate(x轴移动距离，y轴移动距离)：取值为百分比时，参照盒子本身尺寸计算。
+   ranslateX：x轴移动距离
+   translateY: y轴移动距离
+
+   translate3d(x轴移动距离，y轴移动距离，z轴移动距离)
+   translateZ: z轴移动距离,看不到效果。想看到效果可以给父级容器添加视距perspective:800px;建议取值800-1000
+2、旋转
+   rotate(360deg)；顺时针旋转360度(负数是逆时针)
+注：1、旋转会改变坐标方向，所以多重转换要以第一种转换形态的坐标轴为准。列如：transform：translate(600px) rotate(360deg);实现的是平移效果再加中间旋转。如果顺序不对效果布局就会乱。
+   2、具有层叠性，复合属性时(事件也得重新赋值)，translate和rotate不能分开赋值，否则只会取最后一个实现效果。必须写在一起
+   
+   transform-origim:rigth bottom;设置转换原点为右下角
+
+   rotateX(360deg)；x轴顺时针，负值x轴逆时针
+   rotateY(360deg)；y轴顺时针，负值y轴逆时针
+   rotateZ(360deg)；z轴顺时针，负值z轴逆时针
+   以上旋转分不清顺逆时针，为了能更好的看清效果可以给父级容器添加视距perspective:1000px;建议取值800-1000
+3、缩放
+   scale(0.5)；设置缩放0.5，大于1=放大，小于1=缩小
+   scaleX
+   scaleY
+   scaleZ
+4、倾斜
+   skew(30deg)
+
+呈现立体图形步骤
+   1、父元素添加transform-style:preserve-3d;
+   2、子级定位
+   3、调整子盒子的位置（位移或旋转）
+
+渐变
+线性渐变：
+   background-image:linear-gradient(red,green);默认从上到下各占50%。
+   background-image:linear-gradient(to rigth,red,green);可以设置从左到右
+   background-image:linear-gradient(45edg,red,green);倾斜渐变
+   background-image:linear-gradient(red 80%,green);设置渐变比例
+   background-image:linear-gradient(transparent,rgba(0,0,0,0.5));透明渐变至半透明
+径向渐变
+   background-image:radial-gradient(50px at center center,red,pink);从中心向外开始渐变
+ 
+*/
+
+/* 透明度
+opacity:0;取值0-1之间
+*/
+
+/* 光标类型
+cursor：
+default  默认值，通常是箭头
+pointer 小手效果，提示用户可以点击
+text  工字型，提示用户可以选择文字
+move  十字光标，提示用户可以移动
+*/
+
+/* 动画
+定义动画  当动画的开始状态样式 跟 盒子默认样式相同，可以省略动画开始状态的代码
+1、@keyframes 动画名称{
+   from{}
+   to{}
+}
+一个变化可使用。
+2、@keyframes 动画名称{
+   0%{}
+   10%{}
+   ...
+   100%
+}
+多个变化使用，百分比指的动画时长的进度
+
+使用动画
+animation:动画名称 动画时长 速度曲线 延迟时间 重复次数 动画方向 执行完毕时状态;
+1、动画名称和动画时长必须赋值
+2、取值不分先后顺序
+3、如果有两个时间值，第一个时间表示动画时长，第二个时间表示延迟时间
+
+拆分写法：
+   animation-name 动画名称
+   animation-duration 动画时长
+   animation-timing-function 速度曲线：
+      linear：匀速；
+      steps：分步动画，工作中，配合精灵图实现精灵动画
+   animation-delay 延迟时间
+   animation-iteration-count 重复次数：数字或infinite(无限循环);
+   animation-direction 动画方向:alernate（反向）
+   animation-fill-mode 执行完毕时状态：forwards(完毕时的状态),backwards(开始的状态，默认)
+   animation-play-state  暂停动画：paused为暂停，通常配合:hover使用
+*/
+
+
+
+
+/* 移动端知识点 */
+
+/* 媒体查询(根据设备宽度、分辨率不同设置不同的html效果。因为设备类型太多，一般不使用这种模式，而是使用引入脚本的方式)
+    @media (max-width:375px) 屏幕宽度<=375px 多个媒体查询，书写顺序从从大到小
+    @media (min-width:375px) 屏幕宽度>=375px 多个媒体查询，书写顺序从从小到大
+    使用媒体查询，给不同视口的屏幕设置不同的HTML字号 
+    @media (width:375px) {
+      html {
+        font-size:37.5px
+      }
+    }
+
+根据媒体查询引用不同的css文件：
+    例如：<link rel="stylesheet" media="(max-width:768px)" href="test.css">  当屏幕宽度<=768px时执行test.css
+*/
+
+/* rem  相对于html字号计算结果
+rem单位的尺寸=px单位数值(设计稿像素值)/基准根字号(设计师设计稿的参考字号) 
+*/ 
+
+/* vw、vh  相对于视口宽高尺寸计算结果
+1vw=1/100视口宽度
+1vh=1/100视口高度
+*/ 
+
+/* vscode可以通过安装Easy LESS处理这种繁琐的逻辑
+导入：@import "文件相对地址";  可以导入指定less文件里面的样式，加入到自己的生成的css文件里面；
+导出：
+ 1、//out:./css/   同级别生成一个css文件夹并生成自己的css文件到里面
+ 2、//out:./index.css    同级生成名为index.css的文件
+ 3、//out:.myclass/index.css   同级别生成一个myclass文件夹并生成index.css文件到里面
+ 禁止导出：//out:false   一般用于只需要被引用导入的情景，比如一些公共文件
+*/
+
+/* bootstrap
+栅格系统将网页等分成了12份
+划分了以下六个响应区间：
+                     xs       sm      md      lg      xl         xxl 
+                  <576px    ≥576px  ≥768px  ≥992px  ≥1200px    ≥1400px
+Container       None(auto)   540px   720px   960px   1140px     1320px 
+(max-width)
+Class prefix      .c01-   .col-sm- .col-md- .col-lg- .col-xl-  .col-xxl
+注：Class prefix后面的数字=12/需要的份数。比如在576px中需要2份那类名设置为.col-sm-6
+*/
+

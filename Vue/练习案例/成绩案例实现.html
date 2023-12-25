@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .appClass{
+            width: 100%;
+            height: 500px;
+            margin:0px;
+            padding: 0xp;
+        }
+
+        .appClass>div{
+            float: left;
+        }
+
+        .table{
+            width: 500px;
+        }
+        
+        .table table{
+            width: 500px;
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        .table table td{
+            border: 1px solid gray;
+        }
+
+        .table thead{
+            background-color: #DCD7D7;
+        }
+
+
+        .from{
+            width: 300px;
+        }
+        .from-item{
+            margin:20px;
+        }
+
+        .label{
+            float: left;
+        }
+        .from button{
+            background-color: blue;
+            color: white;
+            display: block;
+            margin: 0 auto;
+        }
+
+
+        .red{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="appClass">
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <td>编号</td>
+                        <td>科目</td>
+                        <td>成绩</td>
+                        <td>操作</td>
+                    </tr>
+                </thead>
+                <tbody v-if="list.length>0">
+                    <tr v-for="(item,index) in list" :key="item.id">
+                        <td>{{index+1}}</td>
+                        <td>{{item.subject}}</td>
+                        <td :class="{red:item.score<60}">{{item.score}}</td>
+                        <td>
+                            <a @click.prevent="del(item.id)" href="#">删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tbody v-else>
+                    <tr>
+                        <td colspan="4">
+                            <span>暂无数据</span>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4">
+                            <span>总分：{{totalScore}}分</span>
+                            <span style="margin-left: 50px;">平均分：{{ avgScore}}分</span>
+                        </td>
+                    </tr>
+
+                </tfoot>
+            </table>
+        </div>
+        <div class="from">
+            <div class="from-item">
+                <div class="label">科目：</div>
+                <div class="input">
+                    <input v-model.trim="subject" type="text" placeholder="请输入科目"/>
+                </div>
+            </div>
+            <div class="from-item">
+                <div class="label">分数：</div>
+                <div class="input">
+                    <input v-model.number="score" type="text" placeholder="请输入分数"/>
+                </div>
+            </div>
+            <button @click="add" type="button">添加</button>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script>
+        const app=new Vue({
+            el:"#app",
+            data:{
+                list:[
+                    {id:1,subject:"语文",score:20},
+                    {id:2,subject:"数学",score:70},
+                    {id:3,subject:"英语",score:90}
+                ],
+                subject:'',
+                score:''
+            },
+            methods:{
+                del(value){
+                    this.list=this.list.filter(item=>item.id!==value);
+                },
+                add(){
+                    if(!this.subject){
+                        alert('请输入的科目！');
+                        return;
+                    }
+                    if(typeof this.score!=='number'){
+                        alert('请输入正确的成绩！');
+                        return;
+                    }
+                    this.list.unshift({id:+new Date,subject:this.subject,score:this.score});
+                    this.subject='';
+                    this.score='';
+                }
+            },
+            computed:{
+                totalScore(){
+                    return this.list.reduce((sum,item)=>sum+item.score,0);
+                },
+                avgScore(){
+                    if(this.list.length===0)
+                      return 0;
+                    else
+                      return (this.totalScore/this.list.length).toFixed(2);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

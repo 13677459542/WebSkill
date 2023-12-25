@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        a{
+            text-decoration: none;
+        }
+        .main{
+            width: 1000px;
+            height: 500px;
+            padding: 30px 100px 40px 100px;
+            margin:0 auto;
+            /* background-color: orange; */
+            border: 1px solid gray;
+            border-radius: 8px;
+        }
+        .main ul{
+            height: 400px;
+            width: 800px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-content: space-between;
+            /* background-color: gray; */
+        }
+        .main li{
+            list-style: none;
+            width: 350px;
+            height: 150px;
+        }
+        .main li>h3{
+            line-height: 100px;
+            font-weight: 400;
+            color: #333;
+        }
+        .main li>a{
+            font-size: 14px;
+            color:#666;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <ul>
+            <li>
+                <h3>一键发布多端</h3>
+                <a href="#">发布视频到抖音短视频、西瓜视频及今日头条</a>
+            </li>
+            <li>
+                <h3>管理视频内容</h3>
+                <a href="#">支持修改已发布稿件状态和实时查询视频审核状态</a>
+            </li>
+            <li>
+                <h3>发布携带组件</h3>
+                <a href="#">支持分享内容携带小程序、地理位置信息等组件，扩展内容及突出地域性</a>
+            </li>
+            <li>
+                <h3>数据评估分析</h3>
+                <a href="#">获取视频在对应产品内的数据表现、获取抖音热点，及时进行表现评估</a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

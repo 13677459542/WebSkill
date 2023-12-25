@@ -1,0 +1,198 @@
+//out:../css/
+
+
+.bg-body-tertiary{
+    background-color: transparent !important;
+    .navbar-collapse{
+        flex-grow:0;
+    }
+    .navbar-nav{
+        a{
+            color: hsla(0,0%,100%,.65);
+            &:hover{
+                color: #f2b535;
+            }
+        }
+        .active{
+            color: #f2b535;
+        }
+        .hot{
+            background-image: -webkit-linear-gradient(left,#cddc39,#ff9800 25%,#cddc39 50%,#ff9800 75%,#cddc39)!important;
+            -webkit-text-fill-color: transparent!important;
+            -webkit-background-clip: text!important;
+        }
+        .hot::before{
+            content: "";
+            display: inline-block;
+            background: url(../assets/images/fire.png) 50% no-repeat;
+            width: 13px;
+            height: 15px;
+            background-size: cover;
+            position: relative;
+            top:2px;
+            left: -2px;
+        }
+    }
+}
+
+// 轮播图: 小于768图片高度250 max；大于等于768图片高度400 min；大于等于992图片高度500
+.carousel{
+     // 响应式 → 媒体查询
+    @media (max-width:768px) {
+        .carousel-item{
+            height: 250px;
+        }
+    }
+    @media (min-width:768px) {
+        .carousel-item{
+            height: 400px;
+        }
+    }
+    @media (min-width:992px) {
+        .carousel-item{
+            height: 500px;
+        }
+    }
+    .carousel-item{
+        // height: 500px;
+        background-size: cover;
+        background-position: center 0;
+        position: relative;
+        color: hsla(0,0%,100%,.8);
+        text-align: center;
+        .hire-name{
+            position: absolute;
+            font-size: 50px;
+            opacity:0;
+            transition: all 0.5s;
+        }
+        .hire-title{
+            position: absolute;
+            transition: all 0.5s;
+            font-size: 50px;
+            opacity:0;
+        }
+        &:nth-child(1){
+            .hire-name{
+                bottom: 200px;
+                right: 0px;
+                animation: identifier1 0.5s forwards 0.5s;
+            }
+            .hire-title{
+                bottom:50px;
+                left: 0px;
+                animation: identifier2 0.5s forwards 0.5s;
+            }
+        }
+        &:nth-child(3),&:nth-child(4){
+            .hire-name{
+                top: 0px;
+                left: 50%;
+                transform: translate(-50%,0);
+                animation: identifier3 0.5s forwards 0.5s;
+            }
+            .hire-title{
+                bottom: 0px;
+                left: 50%;
+                transform: translate(-50%,0);
+                animation: identifier4 0.5s forwards 0.5s;
+            }
+        }
+    }
+    @keyframes identifier1 {
+        100%{
+            transform: translateX(-400px);
+            opacity: 1;
+        }
+    }
+    @keyframes identifier2 {
+        100%{
+            transform: translateX(400px);
+            opacity: 1;
+        }
+    }
+    @keyframes identifier3 {
+        100%{
+            transform: translate(-50%,200px);
+            opacity: 1;
+        }
+    }
+    @keyframes identifier4 {
+        100%{
+            transform: translate(-50%,-100px);
+            opacity: 1;
+        }
+    }
+    .carousel-item:nth-child(1){
+        background-image: url(../assets/uploads/banner_1.jpg);
+    }
+    .carousel-item:nth-child(2){
+        background-image: url(../assets/uploads/banner_2.jpg);
+    }
+    .carousel-item:nth-child(3){
+        background-image: url(../assets/uploads/banner_3.jpg);
+    }
+    .carousel-item:nth-child(4){
+        background-image: url(../assets/uploads/banner_4.jpg);
+    }
+}
+
+// 开源项目
+// 默认一行一个
+// 视口宽度大于992；一行排4个盒子  col-lg-3
+// 视口宽度大于768；一行排2个盒子  col-md-6
+.project{
+    margin-top: 60px;
+    text-align: center;
+    .title{
+        h2{
+            color: inherit;
+            font-family: Segoe UI Light,Microsoft YaHei,Arial,Helvetica,sans-serif;
+        }
+        p{
+            color: #919191;
+        }
+    }
+    .row
+    {
+        >div{
+            height: 200px;
+            // background-color: pink;
+            margin-bottom: 10px;
+            a{
+                display: block;
+                height: 200px;
+                background-color: green;
+                border-radius: 4px;
+                padding: 20px 10px;
+                color: #fff;
+                transition: all 0.3s;
+                perspective:800px;
+                text-decoration: none;
+                .pic{
+                    height: 60px;
+                }
+                h3{
+                    margin-top: 20px;
+                    margin-bottom: 10px;
+                }
+                &:hover{
+                    box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+                    transform: translate3d(0px,-5px,0px)
+                }
+            }
+            &:nth-child(1) a{
+                background-color: #70c3ff;
+            }
+            &:nth-child(2) a{
+                background-color: #fd6a7f!important;
+            }
+            &:nth-child(3) a{
+                background-color: #7f8ea0!important;
+            }
+            &:nth-child(4) a{
+                background-color: #89d04f!important;
+            }
+        }
+    }
+}

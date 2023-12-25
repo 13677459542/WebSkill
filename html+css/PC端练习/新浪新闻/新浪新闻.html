@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        li{
+            list-style: none;
+        }
+        a{
+            text-decoration: none;
+        }
+
+        .main{
+            margin:100px auto;
+            width:360px;
+            height: 200px;
+            /* background-color: pink; */
+        }
+        .hd{
+            width:360px;
+            height: 34px;
+            background-color: #eeeeee;
+            border:1px solid #dbdee1;
+            border-left: none;
+        }
+        .hd a{
+            display: inline-block;
+            width: 48px;
+            height: 34px;
+            margin-top: -1px;
+            background-color: #fff;
+            border-top: 3px solid orange;
+            border-right:1px solid #dbdee1;
+            text-align: center;
+            line-height: 32px;
+            color: black;
+        }
+
+        .new{
+            padding-left: 5px;
+        }
+
+        .new li{
+            font-size: 14px;
+            background: url(icon.png) no-repeat 0 -881px;
+            padding-left: 15px;
+            line-height: 26px;
+        }
+        .new li a{
+            padding-left: 20px;
+            background: url(iamgeNew.gif) no-repeat 0 center;
+            color: #666666;
+        }
+
+        .new li a:hover{
+            color: #ff8400;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="hd">
+            <a href="#">新闻</a>
+        </div>
+        <div class="new">
+            <ul>
+                <li><a href="#">点赞“新农人”温暖的伸手</a></li>
+                <li><a href="#">在希望的田野上...</a></li>
+                <li><a href="#">“中国天眼”又有新发现 已在《自然》杂志发表</a></li>
+                <li><a href="#">急!这个领域，缺人!月薪4万元还不好招!啥情况?</a></li>
+                <li><a href="#">G9“带货”背后:亏损面持续扩大，竞争环境激烈</a></li>
+                <li><a href="#"> 多地力推二手房“市把过户”，有什么好处?</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

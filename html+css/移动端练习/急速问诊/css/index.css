@@ -1,0 +1,112 @@
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+body,
+ul,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, PingFangSC-Regular, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #333;
+}
+img {
+  vertical-align: bottom;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  color: #333;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.4rem;
+  height: 1.17333333rem;
+  line-height: 1.17333333rem;
+}
+header .back {
+  /*增加返回图标的点击范围*/
+  width: 0.58666667rem;
+}
+header .icon-left {
+  font-size: 0.58666667rem;
+}
+header h3 {
+  font-size: 0.45333333rem;
+  color: #000;
+}
+header .note {
+  font-size: 0.4rem;
+  color: #2CB5A5;
+}
+.banner {
+  margin-top: 0.81333333rem;
+  margin-bottom: 0.90666667rem;
+  text-align: center;
+}
+.banner img {
+  width: 6.4rem;
+  height: 5.49333333rem;
+}
+.banner p {
+  font-size: 0.42666667rem;
+  line-height: 0.66666667rem;
+  margin-top: 0.48rem;
+}
+.banner p span {
+  color: #16c2a3;
+}
+.type {
+  padding: 0 0.4rem;
+}
+.type li a {
+  width: 9.2rem;
+  height: 2.08rem;
+  border: 0.01333333rem solid #edede5;
+  border-radius: 0.10666667rem;
+  padding-left: 0.4rem;
+  padding-right: 0.26666667rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.4rem;
+}
+.type li a .left {
+  display: flex;
+  align-items: center;
+  height: 1.81333333rem;
+}
+.type li a .left img {
+  width: 1.06666667rem;
+  height: 1.06666667rem;
+}
+.type li a .left .title {
+  margin-left: 0.36rem;
+}
+.type li a .left .title h3 {
+  color: #3C3E42;
+  font-size: 16px;
+  margin-bottom: 0.10666667rem;
+}
+.type li a .left .title p {
+  color: #848484;
+  font-size: 13px;
+}
+.type li a .icon-left {
+  font-size: 0.53333333rem;
+  transform: rotateY(180deg);
+}

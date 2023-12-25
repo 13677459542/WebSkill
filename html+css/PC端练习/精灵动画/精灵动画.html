@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>多组动画</title>
+  <style>
+    div {
+      width: 140px;
+      height: 140px;
+      /* border: 1px solid #000; */
+      background-image: url(./images/bg.png);
+      animation: 
+        run 1s steps(12) infinite,
+        move 3s forwards
+      ;
+    }
+
+    /* 当动画的开始状态样式 跟 盒子默认样式相同，可以省略动画开始状态的代码 */
+    @keyframes run {
+      /* from {
+        background-position: 0 0;
+      } */
+      to {
+        background-position: -1680px 0;
+      }
+    }
+
+    @keyframes move {
+      /* 0% {
+        transform: translate(0);
+      } */
+      100% {
+        transform: translate(800px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div></div>
+</body>
+</html>

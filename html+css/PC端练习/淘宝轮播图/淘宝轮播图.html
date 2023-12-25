@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./iconfont/iconfont.css">
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        li {
+            list-style: none;
+        }
+        .banner{
+            position: relative;
+            width: 564px;
+            height: 315px;
+            margin: 100px auto;
+            overflow: hidden;
+        }
+
+        .banner ul{
+            display: flex;
+        }
+        .banner ul li img{
+            width: 564px;
+            height: 315px;
+            vertical-align: middle;
+            border-radius: 12px;
+        }
+
+        .banner .prev,.banner .next{
+            display: none;
+            width: 20px;
+            height: 30px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.3);
+            color: #fff;
+            text-decoration: none;
+            line-height: 30px;
+        }
+        .banner .prev{
+            left: 0;
+            border-radius: 0 15px 15px 0;
+        }
+        .banner .next{
+            right: 0;
+            border-radius: 15px 0 0 15px;
+            text-align: center;
+        }
+        .banner:hover .prev,.banner:hover .next{
+            display: block;
+        }
+
+        .banner ol{
+            height: 13px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%);
+            display: flex;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 10px;
+        }
+        .banner ol li{
+            width: 8px;
+            height: 8px;
+            background-color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 3px;
+        }
+        .banner .active{
+            background-color: #ff5000;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <!-- 图: ul > li -->
+        <ul>
+          <li><a href="#"><img src="./images/banner1.jpg" alt=""></a></li>
+          <li><a href="#"><img src="./images/banner2.jpg" alt=""></a></li>
+          <li><a href="#"><img src="./images/banner3.jpg" alt=""></a></li>
+        </ul>
+        <!-- 箭头 -->
+        <!-- 上一张 prev -->
+        <a href="#" class="prev">
+          <i class="iconfont icon-zuoce"></i>
+        </a>
+        <!-- 下一张 next -->
+        <a href="#" class="next">
+          <i class="iconfont icon-youce"></i>
+        </a>
+        <!-- 圆点 -->
+        <ol>
+          <li></li>
+          <li class="active"></li>
+          <li></li>
+        </ol>
+      </div>
+</body>
+</html>

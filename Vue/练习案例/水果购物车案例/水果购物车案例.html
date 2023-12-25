@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .appClass{
+            width: 90%;
+            height: 1200px;
+            margin: 0 auto;
+        }
+        .topImgDiv {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            background-image: url('img/水果背景.jpg');
+            background-repeat: repeat;
+            border-radius: 20px;
+        }
+        .shopLog{
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .main,.table{
+            width: 100%;
+        }
+        .tr{
+            line-height: 80px;
+            border: 0.5px solid gray;
+            overflow: hidden;
+            /* border-bottom: none; */
+        }
+        .td {
+            width: 16%;
+            text-align: center;
+            float: left;
+        }
+        .td img{
+            width: 80px;
+            height: 70px;
+            padding: 0;
+            margin: 0;
+            vertical-align: middle;
+        }
+        .thred,.tbody{
+            width: 100%;
+            overflow: hidden;
+        }
+        .thred>div{
+            line-height: 30px;
+            background-color: #d1c9c9;
+        }
+        .button-del{
+            background-color: red;
+            border: none;
+            color: white;
+            width: 40%;
+        }
+        .bottom-main{
+            overflow: hidden;
+        }
+        .bottom-main-check{
+            width: 50%;
+            float: left;
+            box-sizing: border-box;
+            padding-left: 3%;
+        }
+        .bottom-main-check>input{
+            vertical-align: middle;
+        }
+        .ottom-main-submit{
+            width: 50%;
+            float: right;
+            text-align: right;
+            box-sizing: border-box;
+            padding-right: 3%;
+        }
+        
+
+        .TotalAmout{
+            color: chocolate;
+            font-size: 30px;
+        }
+        .button-submit{
+            background-color: #4183EF;
+            color: white;
+            width: 90px;
+            height: 30px;
+            border: none;
+        }
+
+        .bottom{
+            text-align: center;
+            font-size: 30px;
+            line-height: 100%;
+            height: 80px;
+            border: 1px solid gray;
+        }
+        .bottom>img{
+            width: 50px;
+            vertical-align: middle;
+        }
+        .bottom>span{
+            vertical-align: middle;
+            color: gray;
+        }
+
+        .checkColor{
+            background-color: #ece5e5;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="appClass">
+        <div class="topImgDiv"></div>
+        <div class="title">
+            <img class="shopLog" src="img/购物车.jpg">
+            <span>/购物车</span>
+        </div>
+        <div class="main"  v-if="list.length>0">
+            <div class="table">
+                <div class="thred">
+                    <div class="tr">
+                        <div class="td">选中</div>
+                        <div class="td">图片</div>
+                        <div class="td">单价</div>
+                        <div class="td">个数</div>
+                        <div class="td">小计</div>
+                        <div class="td">操作</div>
+                    </div>
+                </div>
+                <div class="tbody">
+                    <div class="tr" v-for="(item,index) in list" :key="item.id" :class="{checkColor:item.isCheck}">
+                        <div class="td"><input type="checkbox" v-model="item.isCheck"></div>
+                        <div class="td"><img :src="item.ImageUrl"></div>
+                        <div class="td">{{item.price}}</div>
+                        <div class="td">
+                            <div class="input-number">
+                                <button @click="NumberDel(item.id)" :disabled="item.num<=1" class="Button-number">-</button>
+                                <span class="span-number">{{item.num}}</span>
+                                <button @click="item.num++" class="Button-number">+</button>
+                            </div>
+                        </div>
+                        <div class="td">{{item.price*item.num}}</div>
+                        <div class="td"><button @click.stop="del(item.id)" class="button-del">删除</button></div>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-main">
+                <div class="tr">
+                   <div class="bottom-main-check"><input type="checkbox" v-model="isAll">全选</div>
+                   <div class="ottom-main-submit">
+                       <span>总价：￥<span class="TotalAmout">{{totalPrice}}</span></span>
+                    <button class="button-submit">结算（{{totalCount}}）</button>
+                   </div>
+                </div>
+            </div>
+        </div>
+        <div v-else class="bottom">
+            <img src="img/购物车.jpg">
+            <span>空空如也</span>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14/dist/vue.js"></script>
+    <script>
+        const defaultArr=[
+                    {id:1,isCheck:true,ImageUrl:"img/榴莲.jpg",price:5,num:2},
+                    {id:2,isCheck:false,ImageUrl:"img/火龙果.jpg",price:34,num:3},
+                    {id:3,isCheck:false,ImageUrl:"img/荔枝.jpg",price:54,num:20},
+                    {id:4,isCheck:true,ImageUrl:"img/苹果.jpg",price:26,num:7}
+                 ]
+        const app=new Vue({
+            el:"#app",
+            data:{
+                // list:[
+                //     {id:1,isCheck:true,ImageUrl:"img/榴莲.jpg",price:5,num:2},
+                //     {id:2,isCheck:false,ImageUrl:"img/火龙果.jpg",price:34,num:3},
+                //     {id:3,isCheck:false,ImageUrl:"img/荔枝.jpg",price:54,num:20},
+                //     {id:4,isCheck:true,ImageUrl:"img/苹果.jpg",price:26,num:7}
+                // ]
+                list:JSON.parse(localStorage.getItem('listData'))||defaultArr
+            },
+            computed:{
+                //只能获取，不能设置。需要设置必须写完整的写法
+                // isAll(){
+                //     return this.list.every(item=>item.isCheck);
+                // }
+                isAll:{
+                    get(){
+                        return this.list.every(item=>item.isCheck);
+                    },
+                    set(value){
+                        this.list.forEach(item=>item.isCheck=value);
+                    }
+                },
+                totalCount(){
+                    // return this.list.filter(item=>item.isCheck).reduce((sum,item)=>sum+=item.num,0)
+                    return this.list.reduce((sum,item)=>{
+                        if(item.isCheck)
+                          return sum+=item.num;
+                        else
+                          return sum;
+                    },0)
+                },
+                totalPrice(){
+                     return this.list.filter(item=>item.isCheck).reduce((sum,item)=>sum+=item.num*item.price,0)
+                }
+            },
+            methods:{
+                del(value){
+                    this.list=this.list.filter(item=>item.id!==value);
+                },
+                NumberDel(value){
+                    var fitData=this.list.find(item=>item.id===value);
+                    if(fitData.num<=1){
+                        console.log("以达到最小值，无法继续删减数量！")
+                    }
+                    else{
+                        fitData.num--;
+                    }
+                }
+            },
+            //设置监听数据变化
+            watch:{
+                list:{
+                    deep:true,
+                    handler(value){
+                        //将变化后的list转成json存入本地
+                        localStorage.setItem('listData',JSON.stringify(value))
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

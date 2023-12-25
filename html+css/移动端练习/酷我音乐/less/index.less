@@ -1,0 +1,201 @@
+//out: ../css/index.css
+
+@import "./base.less";
+
+body{
+    background-color: #f9fafb;
+}
+
+@vw:3.75vw;
+
+header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+
+    padding: 0 (15/@vw);
+    height: (50/@vw);
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .left{
+        width: (235/@vw);
+        height: (50/@vw);
+        background: url(../assets/head.png) no-repeat;
+        // contain:把图像图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域
+        background-size: contain;
+    }
+    a{
+        width: (80/@vw);
+        height: (30/@vw);
+        background-color: #ffe31b;
+        border-radius: (15/@vw);
+        text-align: center;
+        line-height: (30/@vw);
+        font-size:(14/@vw);
+    }
+}
+
+.search{
+    /*头部设置固定定位后会脱标，搜索区会自动到顶部。设置顶部边距防止被挡住*/
+    margin-top: (50/@vw);
+    
+    padding: (10/@vw) (15/@vw);
+    height: (52/@vw);
+    .txt{
+        height: (32/@vw);
+        background-color: #f2f4f5;
+        border-radius: (16/@vw);
+        text-align: center;
+        line-height: (32/@vw);
+        color: #a1a4b3;
+        font-size: (14/@vw);
+        .iconfont{
+            font-size: (16/@vw);
+        }
+    }
+}
+
+.banner{
+    padding: 0 (15/@vw);
+    height: (108/@vw);
+    ul{
+        li{
+            width: (345/@vw);
+            height: (108/@vw);
+            img{
+                width: 100%;
+                height: 100%;
+                /*cover 完全展示,缩放img  图片比例跟父级盒子比例不同，避免图片挤压变形*/
+                object-fit: cover;
+                border-radius: (5/@vw);
+            }
+        }
+    }
+}
+
+.list{
+    margin-top: (20/@vw);
+    padding:(15/@vw);
+    li{
+        margin-bottom: (16/@vw);
+        height:(105/@vw);
+        background-color: #FFF;
+        border-radius: (10/@vw);
+        display: flex;
+        .pic{
+            margin-right: (20/@vw);
+            img{
+                width: (105/@vw);
+                height: (105/@vw);
+                border-radius: (10/@vw);
+            }
+        }
+        .txt{
+            a{
+                display: block;
+                font-size: (12/@vw);
+                color: #a1a4b3;
+                line-height: 1.8;
+
+                &.more{
+                    font-size: (14/@vw);
+                    color: #333;
+                    .iconfont{
+                        font-size: (16/@vw);
+                        vertical-align: middle;
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
+// 标题->公共样式，单独写
+.title{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: (16/@vw);
+    line-height: (25/@vw);
+    h4{
+        font-size: (20/@vw);
+    }
+    a{
+        font-size: (12/@vw);
+        color: #a1a4b3;
+    }
+}
+
+.recommend{
+    padding: 0 (15/@vw);
+    ul{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        li{
+            margin-bottom: (16/@vw);
+            width: (105/@vw);
+            height: (143/@vw);
+            .pic{
+                position: relative;
+                width: (105/@vw);
+                height: (105/@vw);
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: (10/@vw);
+                }
+                .cover{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: (70/@vw);
+                    height: (28/@vw);
+                    background-color: rgb(0,0,0,0.5);
+                    border-radius: 0 (10/@vw) 0 (10/@vw);
+                    text-align: center;
+                    line-height: (28/@vw);
+                    color: #FFF;
+                    font-size: (14/@vw);
+                }
+            }
+            p{
+                font-size: (14/@vw);
+            }
+        }
+    }
+}
+
+.download{
+    height: (45/@vw);
+    width: (345/@vw);
+    position: fixed;
+    bottom: (30/@vw);
+    left: (15/@vw);
+    padding: 0 (10/@vw) 0 (15/@vw);
+    background-color: #fff;
+    border-radius: (22/@vw);
+    display: flex;
+    align-items: center;
+    img{
+        margin-right: (10/@vw);
+        width: (36/@vw);
+        height: (36/@vw);
+    }
+    p{
+        flex: 1;
+        font-size: (14/@vw);
+    }
+    span{
+        height: (32/@vw);
+        width: (32/@vw);
+        background-color: #f2f3f5;
+        border-radius: 50%;
+        text-align: center;
+        line-height: (32/@vw);
+    }
+}

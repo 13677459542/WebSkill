@@ -1,0 +1,174 @@
+.bg-body-tertiary {
+  background-color: transparent !important;
+}
+.bg-body-tertiary .navbar-collapse {
+  flex-grow: 0;
+}
+.bg-body-tertiary .navbar-nav a {
+  color: hsla(0, 0%, 100%, 0.65);
+}
+.bg-body-tertiary .navbar-nav a:hover {
+  color: #f2b535;
+}
+.bg-body-tertiary .navbar-nav .active {
+  color: #f2b535;
+}
+.bg-body-tertiary .navbar-nav .hot {
+  background-image: -webkit-linear-gradient(left, #cddc39, #ff9800 25%, #cddc39 50%, #ff9800 75%, #cddc39) !important;
+  -webkit-text-fill-color: transparent!important;
+  -webkit-background-clip: text!important;
+}
+.bg-body-tertiary .navbar-nav .hot::before {
+  content: "";
+  display: inline-block;
+  background: url(../assets/images/fire.png) 50% no-repeat;
+  width: 13px;
+  height: 15px;
+  background-size: cover;
+  position: relative;
+  top: 2px;
+  left: -2px;
+}
+@media (max-width: 768px) {
+  .carousel .carousel-item {
+    height: 250px;
+  }
+}
+@media (min-width: 768px) {
+  .carousel .carousel-item {
+    height: 400px;
+  }
+}
+@media (min-width: 992px) {
+  .carousel .carousel-item {
+    height: 500px;
+  }
+}
+.carousel .carousel-item {
+  background-size: cover;
+  background-position: center 0;
+  position: relative;
+  color: hsla(0, 0%, 100%, 0.8);
+  text-align: center;
+}
+.carousel .carousel-item .hire-name {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0;
+  transition: all 0.5s;
+}
+.carousel .carousel-item .hire-title {
+  position: absolute;
+  transition: all 0.5s;
+  font-size: 50px;
+  opacity: 0;
+}
+.carousel .carousel-item:nth-child(1) .hire-name {
+  bottom: 200px;
+  right: 0px;
+  animation: identifier1 0.5s forwards 0.5s;
+}
+.carousel .carousel-item:nth-child(1) .hire-title {
+  bottom: 50px;
+  left: 0px;
+  animation: identifier2 0.5s forwards 0.5s;
+}
+.carousel .carousel-item:nth-child(3) .hire-name,
+.carousel .carousel-item:nth-child(4) .hire-name {
+  top: 0px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  animation: identifier3 0.5s forwards 0.5s;
+}
+.carousel .carousel-item:nth-child(3) .hire-title,
+.carousel .carousel-item:nth-child(4) .hire-title {
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  animation: identifier4 0.5s forwards 0.5s;
+}
+@keyframes identifier1 {
+  100% {
+    transform: translateX(-400px);
+    opacity: 1;
+  }
+}
+@keyframes identifier2 {
+  100% {
+    transform: translateX(400px);
+    opacity: 1;
+  }
+}
+@keyframes identifier3 {
+  100% {
+    transform: translate(-50%, 200px);
+    opacity: 1;
+  }
+}
+@keyframes identifier4 {
+  100% {
+    transform: translate(-50%, -100px);
+    opacity: 1;
+  }
+}
+.carousel .carousel-item:nth-child(1) {
+  background-image: url(../assets/uploads/banner_1.jpg);
+}
+.carousel .carousel-item:nth-child(2) {
+  background-image: url(../assets/uploads/banner_2.jpg);
+}
+.carousel .carousel-item:nth-child(3) {
+  background-image: url(../assets/uploads/banner_3.jpg);
+}
+.carousel .carousel-item:nth-child(4) {
+  background-image: url(../assets/uploads/banner_4.jpg);
+}
+.project {
+  margin-top: 60px;
+  text-align: center;
+}
+.project .title h2 {
+  color: inherit;
+  font-family: Segoe UI Light, Microsoft YaHei, Arial, Helvetica, sans-serif;
+}
+.project .title p {
+  color: #919191;
+}
+.project .row > div {
+  height: 200px;
+  margin-bottom: 10px;
+}
+.project .row > div a {
+  display: block;
+  height: 200px;
+  background-color: green;
+  border-radius: 4px;
+  padding: 20px 10px;
+  color: #fff;
+  transition: all 0.3s;
+  perspective: 800px;
+  text-decoration: none;
+}
+.project .row > div a .pic {
+  height: 60px;
+}
+.project .row > div a h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.project .row > div a:hover {
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
+  transform: translate3d(0px, -5px, 0px);
+}
+.project .row > div:nth-child(1) a {
+  background-color: #70c3ff;
+}
+.project .row > div:nth-child(2) a {
+  background-color: #fd6a7f !important;
+}
+.project .row > div:nth-child(3) a {
+  background-color: #7f8ea0 !important;
+}
+.project .row > div:nth-child(4) a {
+  background-color: #89d04f !important;
+}
