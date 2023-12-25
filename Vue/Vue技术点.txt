@@ -36,3 +36,15 @@ Vue生命周期：
 2、挂载阶段  渲染模板：beforeMount   mounted(操作dom)
 3、更新阶段  修改数据，更新视图：beforeUpdate   updated 
 4、销毁阶段  销毁实例：beforeDestroy(释放Vue外的资源，清除定时器、延时器等)    destroyed
+
+工程化开发 & 脚手架 Vue CLI
+基本介绍:Vue CLI是 Vue 官方提供的一个全局命令工具可以帮助我们快速创建一个开发 Vue 项目的标准化基础架子。[集成了 webpack 配置]
+好处:
+    1.开箱即用，零配置
+    2.内置babel等工具
+    3.标准化
+安装步骤：
+    1.全局安装(一次): yarn global add @vue/cli 或 npm i @vue/cli -g
+    2.查看 Vue 版本: vue --version
+    3.创建项目架子: vue create project-name (项目名-不能用中文)
+    4.启动项目: yarn serve 或 npm run serve (找package.json)
