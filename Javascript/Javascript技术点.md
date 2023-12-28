@@ -90,7 +90,7 @@ JavaScript 内置的一个用来让代码延迟执行的函数，叫 setTimeout
       #阻止冒泡
       ev.stopPropagation()
     })
-    事件类型： click 点击 ，submit 提交， dblclick 双击， mouseenter 鼠标移入， mouseleave 鼠标移出， focus 获得焦点, blur 失去焦点, input 用户输入 change 值改变事件 Keydown Keyup 键盘按下抬起触发
+    事件类型： click 点击 ，submit 提交， dblclick 双击， mouseenter 鼠标移入， mouseleave 鼠标移出， focus 获得焦点, blur 失去焦点, input 用户输入 change 值改变事件 keydown keyup 键盘按下抬起触发
     鼠标经过事件：mouseover 和 mouseout 会有冒泡效果 ,  mouseenter  和 mouseleave   没有冒泡效果 (推荐)
     mousemove 鼠标移动事件
     

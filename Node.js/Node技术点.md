@@ -91,8 +91,18 @@ Node.js 中根据模块来源的不同，将模块分为了3大类
 # 加载模块
 使用强大的 require() 方法，可以加载需要的内置模块、用户自定义模块、第三方模块进行使用。使用require()方法加载其它模块时，会执行被加载模块中的代码
 // 1.加载内置的 fs 块 const fs = require('fs')
-// 2.加载用户的自定义模块 const custom = require(' ./custom.js')  可省略.js后缀名
+// 2.加载用户的自定义模块 const custom = require(' ./custom.js')  可省略.js后缀名，必须指定./或者../开头的路径标识符
+    加载顺序：
+    1.按照确切的文件名进行加载
+    2.补全.js 扩展名进行加载
+    3.补全.json 扩展名进行加载
+    4.补全.node 扩展名进行加载
+    5.加载失败，终端报错
 // 3.加载第三方模块(关于第三方模块的下载和使用，会在后面的课程中进行专门的讲解)const moment = require('moment')
+注意：如果把目录作为模块加载，例如：const custom = require(' ./custom')  那么加载顺序如下：
+    1.在被加载的目录下查找一个叫做 package.json 的文件，并寻找 main 属性，作为 require 加载的入口
+    2.如果目录里没有 packagejson 文件，或者 main 入口不存在或无法解析，则 Node,js 将会试图加载目录下的 index.js 文件.
+    3.如果以上两步都失败了，则 Nodejs 会在终端打印错误消息，报告模块的缺失: Error: Cannot find modulexx'
 # 模块作用域
 和函数作用域类似，在自定义模块中定义的变量、方法等成员，只能在当前模块内被访问，这种模块级别的访问限制，叫做模块作用域。
 好处：防止了全局变量污染的问题
@@ -154,4 +164,15 @@ i5ting_toc是一个可以把md文档转为html页面的小工具，使用步骤�
 npm install -g i5ting_toc
 //用 i5ting_toc，轻松实现 md 转 html 的功能
 i5ting_toc -f 要转换的md文件路径(先cd到文件目录中，然后给文件名称) -o
+# nodemon
+在编写调试 Node.js 项目的时候，如果修改了项目的代码，则需要频繁的手动 close 掉，然后再重新启动，非常繁琐.现在，我们可以使用 nodemon (https://www.npmis.com/package/nodemon) 这个工具，它能够监听项目文件的变动，当代码被修改后，nodemon 会自动帮我们重启项目，极大方便了开发和调试.
+npm install -g nodemon  安装为全局工具
+安装后，我们可以将 node 命令替换为 nodemon 命令，使用 nodemon app.js 来启动项目。这样做的好处是:代码被修改之后，会被nodemon 监听到，从而实现自动重启项目的效果。
+
+## Exoress
+官方给出的概念: Express 是基于 Node.js 平台，快速、开放、极简的 Web 开发框架。通俗的理解: Express 的作用和 Node.js 内置的 http 模块类似，是专门用来创建 Web 服务器的.
+Express的本质就是一个npm 上的第三方包，提供了快速创建Web 服务器的便捷方法
+使用Node.js 提供的原生 http 模块也可以创建Web服务器。但是http 内置模块用起来很复杂，开发效率低，Express 是基于内置的 http 模块进一步封装出来的，能够极大的提高开发效率.
+# 路由模板化
+为了方便对路由进行模块化的管理，Express 不建议将路由直接挂载到 app 上，而是推荐将路由抽离为单独的模块。
 
