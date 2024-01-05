@@ -175,4 +175,81 @@ Express的本质就是一个npm 上的第三方包，提供了快速创建Web �
 使用Node.js 提供的原生 http 模块也可以创建Web服务器。但是http 内置模块用起来很复杂，开发效率低，Express 是基于内置的 http 模块进一步封装出来的，能够极大的提高开发效率.
 # 路由模板化
 为了方便对路由进行模块化的管理，Express 不建议将路由直接挂载到 app 上，而是推荐将路由抽离为单独的模块。
+# Express中间件
+Express 的中间件，本质上就是一个 function 处理函数。中间件函数的形参列表中，必须包合 next 参数。而路由处理函数中只包含 req 和 res。
+next 函数是实现多个中间件连续调用的关键，它表示把流转关系转交给下一个中间件或路由。
+    const mw1=(req, res, next) => {
+        // 获取到请求到达服务器的时间，并为 req 对象，挂载自定义属性，从而把时间共享给后面的所有路由
+        req.startTime = = Date.now()
+        // 把流转关系，转交给下一个中间件或路由
+        next()
+    }
+    app.use(mw1)
+全局生效的中间件:客户端发起的任何请求，到达服务器之后，都会触发的中间件，叫做全局生效的中间件即可定义一通过调用 app.use(中间件函数)全局生效的中间件
+中间件的作用：多个中间件之间，共享同一份 req 和 res。基于这样的特性，我们可以在上游的中间件中，统一为 req 或res 对象添加自定义的属性或方法，供下游的中间件或路由进行使用。
+局部生效的中间件：不使用 app.use() 定义的中间件，叫做局部生效的中间件.
+    app.get('/api/test', [mw1, mw2], (req, res) => { res.send('Home page.') })
+注意：
+    1、一定要在路由之前注册中间件
+    2、客户端发送过来的请求，可以连续调用多个中间件进行处理
+    3、执行完中间件的业务代码之后，不要忘记调用 next()
+    4、函数为了防止代码逻辑混乱，调用 next函数后不要再写额外的代码
+    5、连续调用多个中间件时，多个中间件之间，共享 req 和 res 对象
+# Express中间件分类
+1.应用级别的中间件
+    通过 app.use 或 app.get 或 app.post，绑定到 app 实例上的中间件，叫做应用级别的中间件。
+2.路由级别的中间件
+    绑定到 express.Router() 实例上的中间件，叫做路由级别的中间件。它的用法和应用级别中间件没有任何区别。只不过，应用级别中间件是绑定到 app 实例上，路由级别中间件绑定到 router 实例上.
+3.错误级别的中间件
+    错误级别中间件的作用:专门用来捕获整个项目中发生的异常错误，从而防止项目异常崩溃的问题。格式:错误级别中间件的 function 处理函数中，必须有 4 个形参，形参顺序从前到后，分别是(err,req, res, next)
+    注意:错误级别的中间件必须注册在所有路由之后!
+    // 定义错误级别的中间件，捕获整个项目的异常错误，从而防止程序的崩溃
+    app.use((err, req, res, next) => {
+        console.log('发生了错误！' + err.message)
+        res.send('Error：' + err.message)
+    })
+4.Express内置的中间件
+    自Express 4.16.0 版本开始，Express 内置了3个常用的中间件，极大的提高了 Express 项目的开发效率和体验
+    1、express.static 快速托管静态资源的内置中间件，例如: HTML 文件、图片、CSS 样式等(无兼容性)
+    2、expressjson 解析JSON 格式的请求体数据(有兼容性，仅在4.16.0+ 版本中可用)
+    3、express.urlencoded 解析 URL-encoded 格式的请求体数据(有兼容性，仅在 4.16.0+ 版本中可用)
+        // 注意：除了错误级别的中间件，其他的中间件，必须在路由之前进行配置
+        // 通过 express.json() 这个中间件，解析表单中的 JSON 格式的数据
+        app.use(express.json())
+        // 通过 express.urlencoded() 这个中间件，来解析 表单中的 url-encoded 格式的数据。extended:false的意思是：不使用第三方的解析方式，只使用自身的解析方式；如果是true就使用第三方解析方式
+        app.use(express.urlencoded({ extended: false }))
+
+        // 在服务器，可以使用 req.body 这个属性，来接收客户端发送过来的请求体数据。默认情况下，如果不配置解析表单数据的中间件，则 req.body 默认等于 undefined
+        console.log(req.body)
+5.第三方的中间件
+    非Express 官方内置的，而是由第三方开发出来的中间件，叫做第三方中间件。在项目中，大家可以按需下载并配置第三方中间件，从而提高项目的开发效率。
+    例如:在express@4.16.0之前的版本中，经常使用 body-parser 这个第三方中间件，来解析请求体数据。使用步骤如下:
+        1、运行 npm install body-parser 安装中间件
+        2、使用 require 导入中间件
+        3、用app.use0注册并使用中间件
+    Express内置的expressurlencoded 中间件，就是基于body-parser 这个第三方中间件进一步封装出来的
+# 自定义中间件
+参考：案例/Express基本服务器案例/自定义中间件解析请求体数据案例/自定义解析服务.js
+
+# 简单请求
+同时满足以下两大条件的请求，就属于简单请求:
+1、请求方式:GET、POST、HEAD 三者之一
+2、HTTP 头部信息不超过以下几种字段: 无自定义头部字段、Accept、Accept-Language、 Content-Language、DPR.DownlinkSave-Data Viewport-Width, Width、Content-Type (只有三个application/x-www-form-urlencoded、multipart/form-data、text/plain)
+# 预检请求
+只要符合以下任何一个条件的请求，都需要进行预检请求:
+    1、请求方式为 GET、POST、HEAD 之外的请求 Method 类型
+    2、请求头中包含自定义头部字段
+    3、向服务器发送了 application/json 格式的数据
+在浏览器与服务器正式通信之前，浏览器会先发送 OPTION 请求进行预检，以获知服务器是否允许该实际请求，所以这一次的 OPTION 请求称为“预检请求”。服务器成功响应预检请求后，才会发送真正的请求，并且携带真实数据。
+# 简单请求和预检请求的区别
+    简单请求的特点: 客户端与服务器之间只会发生一次请求。
+    预检请求的特点: 客户端与服务器之间会发生两次请求，OPTION 预检请求成功之后，才会发起真正的请求
+
+# JSONP接口
+浏览器端通过 <script>标签的 src 属性，请求服务器上的数据，同时，服务器返回一个函数的调用。这种请求数据的方式叫做JSONP
+特点:
+    1、JSONP不于真正的Ajax请求，因为它没有使用XMLHttpRequest这个对象
+    2、JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE等请求
+如果项目中已经配置了CORS 跨域资源共享，为了防止冲突，必须在配置 CORS 中间件之前声明JSONP 的接口。否则JSONP 接口会被处理成开启了 CORS的接口。
+
 
