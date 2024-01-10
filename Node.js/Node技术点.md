@@ -252,6 +252,11 @@ next 函数是实现多个中间件连续调用的关键，它表示把流转关
     2、JSONP 仅支持 GET 请求，不支持 POST、PUT、DELETE等请求
 如果项目中已经配置了CORS 跨域资源共享，为了防止冲突，必须在配置 CORS 中间件之前声明JSONP 的接口。否则JSONP 接口会被处理成开启了 CORS的接口。
 
+# CORS 第三方包
+(Cross-Origin Resource Sharing，跨域资源共享)由一系列 HTTP 响应头组成，这些 HTTP 响应头决定CORS浏览器是否阻止前端 JS 代码跨域获取资源。
+浏览器的同源安全策略默认会阻止网页“跨域”获取资源。但如果接口服务器配置了 CORS 相关的 HTTP 响应头就可以解除浏览器端的跨域访问限制。
+一定要在路由之前，配置 cors 这个中间件，从而解决接口跨域的问题（需要先安装  npm install cors）
+
 ## mysql数据库操作
 参考 案例/mysql数据库操作案例/操作数据库.js
 
