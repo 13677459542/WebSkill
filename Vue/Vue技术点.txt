@@ -44,7 +44,28 @@ Vue生命周期：
     2.内置babel等工具
     3.标准化
 安装步骤：
-    1.全局安装(一次): yarn global add @vue/cli 或 npm i @vue/cli -g
+    1.全局安装(一次): yarn global add @vue/cli 或 npm i @vue/cli -g （npm建议先切换淘宝镜像地址后进行安装）
+        如果出现未对文件进行数字签名可以运行命令：Set-ExecutionPolicy RemoteSigned  回车后输入Y或A回车即可解决
     2.查看 Vue 版本: vue --version
     3.创建项目架子: vue create project-name (项目名-不能用中文)
-    4.启动项目: yarn serve 或 npm run serve (找package.json)
+    4.启动项目服务: yarn serve 或 npm run serve (找package.json中的scripts节点下的serve,serve如果更改就需要更改命令中的名称)  注意：先cd到项目目录中再执行
+
+(1)组件化:
+页面可拆分成一个个组件，每个组件有着独立的结构、样式、行为
+    好处:便于维护，利于复用 提升开发效率
+    组件分类:普通组件、根组件
+(2)根组件：
+整个应用最上层的组件，包裹所有普通小组件。一个根组件App.vue，包含的三个部分
+    template 结构(只能有一个根节点)
+    style 样式(可以支持less，需要装包 less 和 less-loader )
+    script 行为
+
+普通组件使用时直接当成HTML标签使用，注册：
+组件注册的两种方式:
+1.局部注册:只能在注册的组件内使用
+    创建vue 文件(三个组成部分:结构、样式、脚本)
+    在使用的组件内导入并注册   import 组件对象 from '.vue文件路径'  export default{ components:{ 组件对象 } }
+2.全局注册:所有组件内都能使用
+    创建vue 文件(三个组成部分:结构、样式、脚本)
+    main.js 中进行全局注册  import 组件对象 from '.vue文件路径'  Vue.component('组件名'， 组件对象 )
+一般都用局部注册，如果发现确实是通用组件，再抽离到全局。
