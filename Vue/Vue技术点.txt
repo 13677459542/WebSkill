@@ -49,6 +49,7 @@ Vue生命周期：
     2.查看 Vue 版本: vue --version
     3.创建项目架子: vue create project-name (项目名-不能用中文)
     4.启动项目服务: yarn serve 或 npm run serve (找package.json中的scripts节点下的serve,serve如果更改就需要更改命令中的名称)  注意：先cd到项目目录中再执行
+安装完成后可以安装一下 Vetur 插件方便编写和查看代码
 
 (1)组件化:
 页面可拆分成一个个组件，每个组件有着独立的结构、样式、行为
@@ -69,3 +70,28 @@ Vue生命周期：
     创建vue 文件(三个组成部分:结构、样式、脚本)
     main.js 中进行全局注册  import 组件对象 from '.vue文件路径'  Vue.component('组件名'， 组件对象 )
 一般都用局部注册，如果发现确实是通用组件，再抽离到全局。
+
+组件的三大组成部分：
+1、结构（template）：根节点只能有一个
+2、样式（style）：全局样式(默认):影响所有组件局部样式。加上 scoped 属性，只作用于当前组件: <style scoped></style>
+3、逻辑（script）：el根实例独有,data 是一个函数其他配置项一致
+
+组件里面的data：
+一个组件的 data 选项必须是一个函数。保证每个组件实例，维护独立的一份数据对象每次创建新的组件实例，都会新执行一次 data 函数，得到一个新对象。
+ data () { return { count: 100,name:'测试',... } }
+
+  组件通信：
+ 组件分为父子关系和非父子关系。不同关系通讯方案不同。
+ 父子关系通讯方案： props 和 $emit 
+    1、props : 父传子:父组件中的子组件标签添加 :title="myTitle"  子组件内部中添加 props:['title'] ，子组件就可以通过使用 title 来获取父组件中的 myTitle
+        props校验：一般未做数据校验时如果传值类型不符，控制台是不会报错的。所以可以在传值过程中在子组件改成对象写法添加校验，设置类型可以是任意类型或者函数。 
+            简单写法：props: { w: Number, } Number是限制只能传数字类型，否则控制台报错
+            复杂写法：type：传值类型 required：是否必填  default 默认值  validator：自定义校验，返回true通过，反之控制台抛出异常
+                w: { type: Number, required: true, default: 0, validator(val) { if (val > 100 || val < 0) { console.error('传入的范围必须是0-100之间') return false } else { return true } }
+    }
+    2、子传父（$emit）： 子组件绑定事件在事件中写入 this.$emit('changTitle','修改值')  父组件中子组件标签中添加 @changTitle="handleChange" 。handleChange是一个方法，在父组件方法中写入 
+    handleChange(newTitle) { this.myTitle = newTitle }  newTitle就是子组件触发事件时传入父组件的值
+    注意：子组件需要修改父组件提供的props里面的值是不可以直接修改的，必须遵循单向数据流原则，谁的数据谁负责修改。虽然不能直接修改，但是可以通过 $emit 触发父组件方法，通知父组件自己去修改 
+ 非父子关系通讯方案： provide&inject 和 eventbus   
+    
+ 通用解决方案：Vuex(适合复杂业务场景)
