@@ -92,6 +92,48 @@ Vue生命周期：
     2、子传父（$emit）： 子组件绑定事件在事件中写入 this.$emit('changTitle','修改值')  父组件中子组件标签中添加 @changTitle="handleChange" 。handleChange是一个方法，在父组件方法中写入 
     handleChange(newTitle) { this.myTitle = newTitle }  newTitle就是子组件触发事件时传入父组件的值
     注意：子组件需要修改父组件提供的props里面的值是不可以直接修改的，必须遵循单向数据流原则，谁的数据谁负责修改。虽然不能直接修改，但是可以通过 $emit 触发父组件方法，通知父组件自己去修改 
- 非父子关系通讯方案： provide&inject 和 eventbus   
-    
+ 非父子关系通讯方案： provide&inject 和 event bus（事件总线）
+    event bus（事件总线）：只适用于简单场景，复杂场景推荐使用Vuex。
+        1、新建一个公共js文件，让需要通信的组件都能访问到，写入  import Vue from 'vue'; const Bus = new Vue(); export default Bus;  
+        2、发送方和接收方同时引入  import Bus from '公共js文件地址' ，发送方在方法里面写入触发代码： Bus.$emit('sendMsg', '发送内容')
+        3、接受方在created()里面添加监听Bus实例的事件： created() { Bus.$on('sendMsg', (msg) => { console.log(msg) }) }
+    provide & inject（跨层级共享数据）：在顶层定义 provide 提供数据，在 下层定义 inject 接收数据。
+        顶层： provide() { return { color: this.color,// 简单类型 是非响应式的  userInfo: this.userInfo,// 复杂类型 是响应式的 } }
+        下层： inject: ['color', 'userInfo'],
  通用解决方案：Vuex(适合复杂业务场景)
+
+v-model详解：
+v-model本质上是一个语法糖。例如应用在输入框上，就是 value属性和input事件的合写。列如：v-model="msg1" 等价于 :value="msg1" @input="msg1 = $event.target.value"。
+表单组件封装实现父子组件数据双向绑定，由于v-model有双向绑定的特性，恰巧父子组件不能直接修改相互之间的数据。所以需要使用上述示例的方法进行父子组件的双向数据绑定。详情参考 ./练习案例/父子组件数据双向绑定之下拉框
+
+.sync修饰符:
+作用:可以实现 子组件 与组件数据的 双向绑定，简化代码
+特点: prop属性名，可以自定义，非固定为 value
+场景:封装弹框类的基础组件， visible属性 true显示 false隐藏
+本质:就是 :属性名 和 @update:属性名 合写  例如：:isShow.sync="isShow"  => :isShow="isShow" @update:isShow="isShow=$event"
+
+ref 和 $refs：
+作用:利用 ref 和$refs 可以用于 获取 dom 元素,或组件实例。特点: 查找范围 > 当前组件内(更精确稳定)
+获取dom：1、目标标签添加 ref="属性名" 属性。2、在mounted之后通过 this.$refs.属性名 获取目标标签。也可通过该方式调用组件对象里面的方法，甚至可以直接获取方法返回的数据。
+
+Vue异步更新、$nextTick：
+Vue是异步更新 DOM 的,想要在 DOM 更新完成之后做某件事，可以使用 $nextTick
+this.$nextTick(()=>{ 你需要操作的代码 })
+
+自定义指令（自己定义的指令，可以封装一些 dom 操作，扩展额外功能）：
+局部注册（directives：局部注册指令，focus：指令名：指令的配置项，在指令所在的元素，inserted：被插入到页面中时触发，update：值更新后触发，el：指令所绑定的元素，binding.value：指令绑定的值）：
+    在组件中写入（此处注册了一个v-color的局部指令，用于绑定元素的颜色。相关案例参考 ./练习案例/自定义指令之v-loading）：
+        directives: { color: { inserted (el,binding) { el.style.color = binding.value},update (el,binding) { el.style.color = binding.value } } } 
+全局注册（Vue.directive：全局注册指令，focus：指令名：指令的配置项，在指令所在的元素，inserted：被插入到页面中时触发）：
+    在main.js中写入：Vue.directive('focus', { inserted (el,binding) { el.focus() } })  //此处注册了一个v-focus的全局指令，用于给元素获取焦点。
+
+slot 插槽（让组件内部的一些结构支持自定义）：
+1.组件内需要定制的结构部分，改用<slot></slot>占位。（当父组件未提供内容时，则是空白。也可以在slot标签里面写入默认内容。例如：<slot>我是默认内容</slot>）
+2.使用组件时,<MyDialog></MyDialog>标签内部,传入结构替换slot。（例如：<MyDialog><p>我是传入的内容</p></MyDialog>）
+v-slot（具名插槽）：
+    一旦组件的 slot 分发了name属性就属于具名插槽，只支持定向分发。需要在父组件调用时通过template标签包裹需要分发的结构，包成一个整体。
+         父组件写入该组件时往里面写入：<template v-slot:插槽名称><div>我是大标题</div></template>  //v-slot:插槽名称 也可以简写成 #插槽名称
+作用域插槽（可以给插槽上绑定数据，供将来使用组件时使用。例如table的内容展示、新增、修改、删除等）：
+1、给slot标签以添加属性的方式传值
+2、所有添加的属性，都会被收集到一个对象中
+3、在template中，通过 #插槽名="obj" 接收，默认插槽名为 default

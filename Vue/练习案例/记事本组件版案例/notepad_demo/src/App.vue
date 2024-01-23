@@ -8,6 +8,7 @@
 </template>
 
 <script>
+//声明组件
 import TodoHeader from './components/TodoHeader.vue'
 import TodoMain from './components/TodoMain.vue'
 import TodoFooter from './components/TodoFooter.vue'
@@ -40,18 +41,18 @@ export default {
         { id: 1, name: '打篮球' },
         { id: 2, name: '看电影' },
         { id: 3, name: '逛街' },
-      ],
+      ],//从本地取存储的数据，如果不存在就取后面写好的数据。
     }
   },
-  components: {
+  components: { //以下是为组件进行局部注册
     TodoHeader,
     TodoMain,
     TodoFooter,
   },
   watch: {
-    list: {
-      deep: true,
-      handler(newVal) {
+    list: {//监听data节点里面的list
+      deep: true,//深度监视
+      handler(newVal) {//一旦数据发生变化，就更改本地存储的数据
         localStorage.setItem('list', JSON.stringify(newVal))
       },
     },
@@ -62,14 +63,14 @@ export default {
       this.list.unshift({
         id: +new Date(),
         name: todoName,
-      })
+      })//list最前面添加一个对象到集合中
     },
     handelDel(id) {
       // console.log(id);
-      this.list = this.list.filter((item) => item.id !== id)
+      this.list = this.list.filter((item) => item.id !== id)//取出除指定条件外的数据，重新赋值给list
     },
     clear() {
-      this.list = []
+      this.list = [] //list直接赋值为空
     },
   },
 }
