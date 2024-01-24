@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <title>3D立体方块</title>
+    <style lang="less">
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #ccc;
+            font-family: sans-serif;
+        }
+        ul{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            display: flex;
+            list-style: none;
+            li{
+                margin: 0 25px;
+                a{
+                    text-decoration: none;
+                    letter-spacing: 2px;/* 字母间距 */
+                    display: inline-block;/* 设置行内块，方便设置宽高 */
+                    width: 250px;
+                    height: 80px;
+                    background-color: white;
+                    text-align: center;
+                    color: #333;
+                    font-size: 20px;
+                    transform: rotate(-30deg) skew(25deg);/*rotate(-30deg)逆时针旋转30度 skew(25deg)X轴偏斜25度(底部往x正轴倾斜，头部往x负轴倾斜)*/
+                    box-shadow: -25px 20px 10px rgba(0, 0, 0, .5);/* 设置阴影 */
+                    transition: 0.5s;
+                    .iconfont{
+                        font-size: 40px;
+                        color: #333;
+                    }
+                    i{
+                        line-height: 80px;
+                        padding-right: 14px;
+                        transition: 0.5s;
+                    }
+                    span{
+                        color: #333;
+                        transition: 0.5s;
+                    }
+                    /* :before用于在元素内容之前插入一些内容，而:after用于在元素内容之后插入一些内容。 */
+                    &::before{
+                        content: '';
+                        position: absolute;
+                        top:10px;
+                        left: -20px;
+                        height: 100%;
+                        width: 20px;
+                        background-color: #b1b1b1;
+                        transform: rotate(0deg) skewY(-40deg);
+                        transition: 0.5s;
+                    }
+                    &::after{
+                        content: '';
+                        position: absolute;
+                        bottom:-20px;
+                        left: -10px;
+                        height: 20px;
+                        width: 100%;
+                        background-color: #b1b1b1;
+                        transform: rotate(0deg) skewX(-45deg);
+                        transition: 0.5s;
+                    }
+                }
+                &:hover a{
+                    background-color: #dd4b39;
+                    /* 这里还加上了rotate(-30deg) skew(25deg) 是因为transform会覆盖之前的值 */
+                    transform: rotate(-30deg) skew(25deg) translate(20px,-15px);
+                    box-shadow: -50px 50px 50px rgba(0, 0, 0, .5);
+                }
+                &:hover .iconfont, &:hover span{
+                    color: #fff;
+                }
+                &:hover a::before{
+                    background-color: #b33a2b;
+                }
+                &:hover a::after{
+                    background-color: #e66a5a;
+                }
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <ul>
+        <li>
+            <a href="#">
+                <i class="iconfont icon-dianpukanban"></i>
+                <span> - Like </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="iconfont icon-shujuzhanshi"></i>
+                <span> - Comment </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="iconfont icon-zhijianghuodongD"></i>
+                <span> - Share </span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <i class="iconfont icon-zhishushangsheng"></i>
+                <span> - Like</span>
+            </a>
+        </li>
+    </ul>
+</body>
+</html>

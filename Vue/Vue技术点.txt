@@ -137,3 +137,20 @@ v-slot（具名插槽）：
 1、给slot标签以添加属性的方式传值
 2、所有添加的属性，都会被收集到一个对象中
 3、在template中，通过 #插槽名="obj" 接收，默认插槽名为 default
+
+路由:
+Vue中路由:路径 和 组件 的映射关系
+VueRouter 的介绍：
+目标:认识插件VueRouter，掌握VueRouter的基本使用。步骤作用:修改地址栏路径时，切换显示匹配的。组件说明:Vue 官方的一个路由插件，是一个第三方包
+路由的使用步骤 5 + 2
+5个基础步骤
+    1. 下载 v3.6.5      2. 引入     3. 安装注册 Vue.use(Vue插件)    4. 创建路由对象     5. 注入到new Vue中，建立关联
+2个核心步骤
+    1. 建组件(views目录)，配规则    2. 准备导航链接，配置路由出口(匹配的组件展示的位置) 
+实现代码：
+    main.js中注入：  import VueRouter from 'vue-router'
+                    Vue.use(VueRouter) // VueRouter插件初始化
+                    // routes 路由规则集合          route  一条路由规则 { path: 路径, component: 组件 }
+                    const router = new VueRouter({ routes: [ { path: '/find', component: Find }, { path: '/my', component: My }, { path: '/friend', component: Friend }, ] })
+                    new Vue({ render: h => h(App), router }).$mount('#app')
+    app.vue中写入：  <!-- 路由出口 → 匹配的组件所展示的位置,可以写在某个盒子中 --> <router-view></router-view>
