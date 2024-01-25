@@ -144,13 +144,48 @@ VueRouter 的介绍：
 目标:认识插件VueRouter，掌握VueRouter的基本使用。步骤作用:修改地址栏路径时，切换显示匹配的。组件说明:Vue 官方的一个路由插件，是一个第三方包
 路由的使用步骤 5 + 2
 5个基础步骤
-    1. 下载 v3.6.5      2. 引入     3. 安装注册 Vue.use(Vue插件)    4. 创建路由对象     5. 注入到new Vue中，建立关联
+    1. npm i vue-router@3.6.5      2. 引入     3. 安装注册 Vue.use(Vue插件)    4. 创建路由对象     5. 注入到new Vue中，建立关联
 2个核心步骤
     1. 建组件(views目录)，配规则    2. 准备导航链接，配置路由出口(匹配的组件展示的位置) 
 实现代码：
-    main.js中注入：  import VueRouter from 'vue-router'
+    index.js中注入： import Find from '@/views/Find'    import My from '@/views/My'     import Friend from '@/views/Friend'
+                    import Vue from 'vue'
+                    import VueRouter from 'vue-router'
                     Vue.use(VueRouter) // VueRouter插件初始化
-                    // routes 路由规则集合          route  一条路由规则 { path: 路径, component: 组件 }
                     const router = new VueRouter({ routes: [ { path: '/find', component: Find }, { path: '/my', component: My }, { path: '/friend', component: Friend }, ] })
+                    export default router
+    main.js中注入：  import router from './router/index'
                     new Vue({ render: h => h(App), router }).$mount('#app')
-    app.vue中写入：  <!-- 路由出口 → 匹配的组件所展示的位置,可以写在某个盒子中 --> <router-view></router-view>
+    app.vue中写入：  <router-link to="/find">发现音乐</router-link><router-link to="/my">我的音乐</router-link><router-link to="/friend">朋友</router-link> 
+                    <!-- 路由出口 → 匹配的组件所展示的位置,可以写在某个盒子中 --> <router-view></router-view>
+声明式导航：
+实现导航高亮:vue-router 提供了一个全局组件 router-link(取代a标签)
+    1、能跳转，配置to届性指定路径(必须)。本质还是a标签，to 无需# 
+    2、能高亮，默认就会提供高亮类名(.router-link-active(模糊匹配，用的更多),.router-link-exact-active(精确匹配))，可以直接设置高亮样式
+跳转传参：
+    1.查询参数传参(适合多个参数，用&隔开)
+        1、语法格式如下 to="/path?参数名=值 2、对应页面组件接收传递过来的值 $route.query.参数名  在created()中需要在最前方加上this
+    2.动态路由传参(适合单个参数，比较简洁。/find/:words?如果没有加?，那么这个参数是必传的，如果不传就无法匹配路由)
+        1、配置动态路由 path: '/find/:words?' 2、配置导航链接 to="/path/参数值" 3、对应页面组件传递过来的值 $route.params.words 在created()中需要在最前方加上this
+自定义高亮类名（ 在实例化时(const router = new VueRouter)加入代码,与routes同级）：
+    linkActiveClass: 'active', // 配置模糊匹配的类名
+    linkExactActiveClass: 'exact-active' // 配置精确匹配的类名
+路由重定向： 在实例路由集合最前加上：{ path: '/', redirect: '/home' }//默认跳转到home
+路由-404（当路径找不到匹配时，给个提示页面）：在实例路由集合最后加上：{ path: '*', component: NotFound } //新建NotFound.vue，前面所有路由都没有找到则跳转到NotFound.vue
+路由模式设置(默认mode:"hash",地址栏去除#,改成history)：在实例化时(const router = new VueRouter)加入代码 mode:"history" ,与routes同级、
+编程式导航（js形式）：
+1、path路径跳转：this.$router.push({ path: '路径' })
+    传参：1、地址传参同上。 2、this.$router.push({ path: '路径',query:{ key:this.inputVal,value:this.inputVal } })
+2、路由名称跳转(适合路径名称长的场景)：this.$router.push({ name: '路由名称' }) //需要在实例化路由集合中给每个路由定义name属性和对应名称
+    传参：1、this.$router.push({ name: '路由名称',query:{ key:this.inputVal } })    2、动态路由：this.$router.push({ name: '路由名称',params:{ words:this.inputVal } })
+组件缓存 keep-alive
+1.keep-alive是什么
+    keep-alive是Vue的内置组件，当它包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们
+    keep-alive 是一个抽象组件: 它自身不会染成一个 DOM 元素，也不会出现在父组件链中。
+2.keep-alive的优点
+    在组件切换过程中把切换出去的组件保留在内存中，防止重复渲染DOM减少加载时间及性能消耗，提高用户体验性。
+3.keep-alive的三个属性
+    include :组件名数组，只有匹配的组件会被缓存
+@exclude:组件名数组，任何匹配的组件都不会被缓存
+最多可以缓存多少组件实例
+Bmax
