@@ -1,0 +1,5 @@
+目标:基于json-server 工具，准备后端接口服务环境
+1安装全局工具json-server (全局工具仅需要安装一次)[官网]yarn global addjson-server 或 npm i json-server -g
+2.代码根目录新建一个 db目录
+3.将资料index.json 移入 db 目录
+4.进入db目录启动终端，执行命令，启动后端接口服务    json-server --watch index.json --port 3000

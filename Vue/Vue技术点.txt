@@ -178,14 +178,49 @@ VueRouter 的介绍：
     传参：1、地址传参同上。 2、this.$router.push({ path: '路径',query:{ key:this.inputVal,value:this.inputVal } })
 2、路由名称跳转(适合路径名称长的场景)：this.$router.push({ name: '路由名称' }) //需要在实例化路由集合中给每个路由定义name属性和对应名称
     传参：1、this.$router.push({ name: '路由名称',query:{ key:this.inputVal } })    2、动态路由：this.$router.push({ name: '路由名称',params:{ words:this.inputVal } })
-组件缓存 keep-alive
-1.keep-alive是什么
-    keep-alive是Vue的内置组件，当它包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们
+组件缓存 keep-alive:
+    keep-alive 是Vue的内置组件，当它包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们
     keep-alive 是一个抽象组件: 它自身不会染成一个 DOM 元素，也不会出现在父组件链中。
-2.keep-alive的优点
+keep-alive的优点
     在组件切换过程中把切换出去的组件保留在内存中，防止重复渲染DOM减少加载时间及性能消耗，提高用户体验性。
-3.keep-alive的三个属性
+keep-alive的三个属性
     include :组件名数组，只有匹配的组件会被缓存
-@exclude:组件名数组，任何匹配的组件都不会被缓存
-最多可以缓存多少组件实例
-Bmax
+    exclude :组件名数组，任何匹配的组件都不会被缓存
+    max :最多可以缓存多少组件实例
+
+Vuex：
+vueX 是一个 vue 的状态管理工具，状态就是数据  其实就是一个插件，可以帮我们管理 vue 通用的数据(多组件共享的数据)
+场景：1、某个状态在很多个组件 来使用(个人信息)    2、多个组件共同维护一份数据(购物车)
+优势:1、共同维护一份数据，数据集中化管理    2、响应式变化   3、操作简洁(vuex提供了一些辅助函数)
+提供数据（State）：State 提供唯一的公共数据源，所有共享的数据都要统一放到Store中的State中存储在state对象中可以添加我们要共享的数据。 
+访问数据：
+    1、通过store： 模板：$store.state 组件逻辑：this.$store.state js:store.state     
+    2、通过辅助函数 mapstate ：mapstate是辅助函数，帮助我们把 store中state的数据自动 映射到组件的计算属性中    computed: { ...mapState(['count', 'title']) }  //完成后直接使用count、title
+修改数据(明确vuex同样遵循单向数据流，组件中不能直接修改仓库的数据。 strict: true：开启严格模式 (检测不规范的代码 => 上线时需要关闭))：
+    mutations ：是vuex中的一个对象，state数据的修改只能通过mutations
+        1.定义mutations对象，对象中存放修改state的方法。  所有mutation函数，第一个参数，都是state。后面可以跟上传递的参数
+        2.组件中提交调用mutations  组件逻辑调用： this.$store.commit('方法名', 参数对象) 注意点：mutation参数有且只能有一个，如果需要多个参数，包装成一个对象
+        辅助函数: mapMutations 映射方法，与 mapState 类似，它是把位于mutations中的方法提取了出来，映射到组件methods中。组件可以直接调用：methods: { ...mapMutations(['subCount', 'changeTitle']) }
+    actions 处理异步：actions中的异步方法第一个参数固定为 context(上下文 (此处未分模块，可以当成store仓库)) 后面可以跟上传递的参数   组件逻辑调用：this.$store.dispatch('action名字', 额外参数)
+        注意：actions里面的方法不能直接操作state，还是需要提交 mutation:context.commit('方法名', 参数)
+        辅助函数 mapActions ：与mapMutations一样，是把位于actions中的方法提取了出来，映射到组件methods中  methods: { ...mapActions(['subCount', 'changeTitle']) }
+    getters(类似于计算属性)：除了state之外，有时我们还需要从state中派生出一些状态，这些状态是依赖state的，此时会用到getters。简单说就是对state中的数据进行计算并return符合条件的值
+        1. 形参第一个参数，就是state    2. 必须有返回值，返回值就是getters的值  
+        辅助函数 mapGetters ：与 mapState 一样，映射到组件的计算属性中    computed: { ...mapGetters(['filterList']) }  //完成后直接使用filterList
+    注意：以上所有提到的辅助函数都需要在使用的组件中进行注册：import { 辅助函数名 } from 'vuex'
+module(模块)：
+由于 vuex 使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时store 对象就有可能变得相当臃肿。(当项目变得越来越大的时候，Vuex会变得越来越难以维护)，所以可以对不同模块的数据进行拆分。
+    操作方法：在store文件夹下新建modules文件夹存放，在js文件中写入const state={},...mutations...actions...getters... 并导出。在vuex实例化中添加modules节点并注册新加的模块。
+    访问数据：尽管已经分模块了，但其实子模块的状态，还是会挂到根级别的 state 中，属性名就是模块名。
+        1、直接通过模块名访问 $store.state.模块名.xxx   
+        2、通过 mapstate 映射 映射模块对象 computed: { ...mapState(['模块名']) } 或者单独映射(需要先在模块导出时开启命名空间 namespaced: true ) computed: { ...mapState('模块名',['xxx']) }
+    getters ：
+        1、通过模块名访问 $store.getters['模块名/getters方法名']
+        2、通过 mapGetters 辅助函数映射 computed: { ...mapState('模块名',['xxx']) }
+    mutations 、 actions ：默认模块中的 mutation 和 actions 会被挂载到全局，需要开启命名空间，才会挂载到子模块。
+        1、mutations直接通过 store 调用 $store.commit('模块名/mutations名称'，额外参数)     actions直接通过 store 调用 $store.dispatch('模块名/dispatch名称'，额外参数)
+        2、mutations和actions分别通过 mapMutations、mapActions 映射   根级别的映射 methods: { ...mapMutations(['xxx']) }   子模块的映射 methods: { ...mapMutations(模块名,['xxx']) }- 需要开启 命名空间
+
+
+
+
