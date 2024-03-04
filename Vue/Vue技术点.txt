@@ -49,6 +49,7 @@ Vue生命周期：
     2.查看 Vue 版本: vue --version
     3.创建项目架子: vue create project-name (项目名-不能用中文)
     4.启动项目服务: yarn serve 或 npm run serve (找package.json中的scripts节点下的serve,serve如果更改就需要更改命令中的名称)  注意：先cd到项目目录中再执行
+    5.打包： yarn build 或 npm run build 在项目的根目录会自动创建一个文件夹`dist`，dist中的文件就是打包后的文件，只需要放到服务器中即可。(格式化快捷键：Shift+Alt+F)
 安装完成后可以安装一下 Vetur 插件方便编写和查看代码
 
 (1)组件化:
@@ -221,6 +222,13 @@ module(模块)：
         1、mutations直接通过 store 调用 $store.commit('模块名/mutations名称'，额外参数)     actions直接通过 store 调用 $store.dispatch('模块名/dispatch名称'，额外参数)
         2、mutations和actions分别通过 mapMutations、mapActions 映射   根级别的映射 methods: { ...mapMutations(['xxx']) }   子模块的映射 methods: { ...mapMutations(模块名,['xxx']) }- 需要开启 命名空间
 
+vant2 组件库（第三方 封装好了很多很多的组件，整合到一起就是一个组件库）：
+地址：https://vant-contrib.gitee.io/vant/v2/#/zh-CN/  vant2 支持vue2 ，vant3、4 支持vue3
+postcss插件：实现项目vw 适配,位置在vant2官方文档的进阶用法  安装指令：npm i postcss-px-to-viewport@1.1.1 -D
+Toast 轻提示：位置在vant2官方文档的基础组件
 
+打包优化:路由懒加载
+目标:配置路由懒加载，实现打包优化
+说明:当打包构建应用时，JavaScript包会变得非常大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了，
 
 
