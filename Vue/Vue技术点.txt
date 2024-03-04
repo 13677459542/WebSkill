@@ -231,4 +231,62 @@ Toast 轻提示：位置在vant2官方文档的基础组件
 目标:配置路由懒加载，实现打包优化
 说明:当打包构建应用时，JavaScript包会变得非常大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了，
 
-
+Vue3
+优势：
+    更容易维护：1.组合式API 2.更好的TypeScript支持
+    更快的速度：1.重写diff算法 2.模版编译优化 3.更高效的组件初始化
+    更小的体积：1.良好的TreeShaking 2.按需引入
+    更优的数据响应式：Proxy
+使用create-vue创建项目
+    1.前提环境条件
+        node -v 已安装 16.0 或更高版本的 Node.js
+    2.创建一个Vue应用
+        npm init vue@latest 这一指令将会安装并执行 create-vue
+setup
+    1. 执行时机，比beforeCreate还要早
+    2. setup函数中，获取不到this (this是undefined)
+    3. 数据 和 函数，需要在 setup 最后 return，才能模板中应用
+    4. 问题：每次都要return，好麻烦？通过 setup 语法糖简化代码
+reactive()：  作用:接受对象类型数据的参数传入并返回一个响应式的对象
+    1.从 vue 包中导入 reactive 函数
+    2.在<scrint setup>中执行 reactive 函数并传入类型为对象的初始值，并使用变量接收返回值
+ref():  接收简单类型或者对象类型的数据传入并返回一个响应式的对象
+    1. 从 vue 包中导入 ref 函数
+    2.在<script setup>中执行 ref 函数并传入初始值，使用变量接收 ref 函数的返回值
+    本质：是在原有传入数据的基础上，外层包了一层对象，包成了复杂类型
+    底层，包成复杂类型之后，再借助 reactive 实现的响应式
+    注意点：
+        1. 脚本中访问数据，需要通过 .value
+        2. 在template中，.value不需要加 (帮我们扒了一层)
+    推荐：以后声明数据，统一用 ref => 统一了编码规范
+computed计算属性函数
+    1.导入computed函数
+    2.执行函数 在回调参数中return基于响应式数据做计算的值，用变量接收
+    写法：  const computed名称 = computed(() => { ... })
+watch函数
+    侦听一个或者多个数据的变化，数据变化时执行回调函数。俩个额外参数: 1.immediate(立即执行)  2.deep(深度侦听)
+    1.导入watch函数
+    2.执行watch函数传入要侦听的响应式数据(ref对象)和回调函数
+    监视单个数据的变化： watch(ref对象, (newValue, oldValue) => { ... })
+    监视多个数据的变化： watch([ref对象1, ref对象2], (newArr, oldArr) => { ... })
+    立即执行和深度侦听： watch(ref对象, (newValue, oldValue) => { ... }, immediate:true, deep:true) watch默认是浅层监视只能监视简单类型ref，复杂类型(ref(对象))需要开启deep
+    对于对象中的单个属性，进行监视: watch(() => 对象.value.节点, (newValue, oldValue) => { ... })
+组件通信-父传子
+    由于写了 setup，所以无法直接配置 props 选项,所以：此处需要借助于 “编译器宏” 函数接收子组件传递的数据.对于props传递过来的数据，模板中可以直接使用  
+    const props = defineProps({ ... })  脚本使用：props.名称  template使用：名称
+组件通信-子传父
+    子组件通过 defineEmits 编译器宏生成 emit 方法 const emit = defineEmits(['父组件绑定子组件的@事件名称'])   触发： emit('事件名称', 修改的值)
+模板引用的概念
+    通过ref标识获取真实的dom对象或者组件实例对象
+        1. 调用ref函数，生成一个ref对象
+        2. 通过ref标识，进行绑定
+        3. 通过ref对象.value即可访问到绑定的元素(必须渲染完成(onMounted)后，才能拿到)
+        defineExpose()
+            默认情况下在<script setup>语法糖下组件内部的属性和方法是不开放给父组件访问的可以通过 defineExpose 编译宏指定哪些属性和方法允许访问  defineExpose({ ... })
+provide 和 inject
+    顶层组件向任意的底层组件传递数据和方法，实现跨层组件通信
+    跨层传递普通数据
+        1.顶层组件通过 provide 函数提供数据 provide('key',顶层组件中的数据) 跨层传递函数 => 给子孙后代传递可以修改数据的方法： provide('changeCount', (newCount) => { ... })
+        2.底层组件通过 inject 函数获取数据或方法  const message = inject('key')
+    
+    
