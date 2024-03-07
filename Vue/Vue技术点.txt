@@ -231,7 +231,7 @@ Toast 轻提示：位置在vant2官方文档的基础组件
 目标:配置路由懒加载，实现打包优化
 说明:当打包构建应用时，JavaScript包会变得非常大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了，
 
-Vue3
+Vue3 :最大的区别就是vue2是选项式api，vue3是组合式api更利于开发
 优势：
     更容易维护：1.组合式API 2.更好的TypeScript支持
     更快的速度：1.重写diff算法 2.模版编译优化 3.更高效的组件初始化
@@ -288,5 +288,23 @@ provide 和 inject
     跨层传递普通数据
         1.顶层组件通过 provide 函数提供数据 provide('key',顶层组件中的数据) 跨层传递函数 => 给子孙后代传递可以修改数据的方法： provide('changeCount', (newCount) => { ... })
         2.底层组件通过 inject 函数获取数据或方法  const message = inject('key')
-    
+新特性：defineOptions
+    有<script setup>之前，如果要定义 props,emits 可以轻而易举地添加一个与 setup 平级的属性。但是用了 <script setup>后，就没法这么干了 setup 属性已经没有了，自然无法添加与其平级的属性。
+    为了解决这一问题，引入了 defineProps 与 defineEmits 这两个宏。但这只解决了 props 与 emits 这两个属性。
+    如果我们要定义组件的 name 或其他自定义的属性，还是得回到最原始的用法--再添加一个普通的 <script>标签,这样就会存在两个<script>标签。让人无法接受。
+    所以在 Vue 3.3 中新引入了 defineOptions 宏。顾名思义，主要是用来定义 options APl的选项。可以用defineOptions 定义任意的选项，props,emits,expose,slots 除外(因为这些可以使用 defineXXX 来做到)
+新特性：defineModel
+    在vue3中，自定义组件上使用v-model，相当于传递一个modelValue属性，同时触发 update:modelValue 事件.需要先定义 props，再定义 emits 。其中有许多重复的代码。如果需要修改此值，还需要手动调用 emit 函数，得到一个新对象。
+新状态管理工具 Pinia : 是 Vuex 的替代品
+    1.提供更加简单的API(去掉了 mutation )
+    2.提供符合，组合式风格的API(和 Vue3 新语法统一)
+    3.去掉了 modules 的概念，每一个 store 都是一个独立的模块
+    4.配合 Typescript 更加友好，提供可靠的类型推断
+使用 Vite 创建一个空的 Vue3 项目： npm create vue@latest  安装Pinia: npm install pinia
+Pinia使用案例参考：Pinia案例
+Pinia持久化插件 官方文档:https://prazdevs.github.io/pinia-plugin-persistedstate/zh/
+    1.安装插件 pinia-plugin-persistedstate  npm i pinia-plugin-persistedstate
+    2.main.js 使用  import persist from "pinia-plugin-persistedstate  ...  app.use(createPinia().use(persist))
+    3.store仓库中，persist: true 开启
+
     
