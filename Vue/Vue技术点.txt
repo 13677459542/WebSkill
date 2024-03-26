@@ -307,4 +307,15 @@ Pinia持久化插件 官方文档:https://prazdevs.github.io/pinia-plugin-persis
     2.main.js 使用  import persist from "pinia-plugin-persistedstate  ...  app.use(createPinia().use(persist))
     3.store仓库中，persist: true 开启
 
+pnpm    包管理器
+一些优势:比同类工具快2倍左右、节省磁盘空间.
+安装方式：npm install -g pnpm
+创建项目: pnpm create vue  其他比如： pnpm add axios    pnpm add axios -D   pnpm remove axios   pnpm dev
+
+按需引入 Element Plus 前端框架
+1.安装: pnpm add element-plus
+2.配置按需导入: 官方文档:https://element-plus.org/zh-CN/guide/quickstart.html
+3.直接使用组件
+安装 Element Plus 图标库： pnpm i @element-plus/icons-vue
+
     
